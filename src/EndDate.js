@@ -29,7 +29,7 @@ const EndDate = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     margin: 20,
     borderWidth: 2,
     borderColor: 'orange',

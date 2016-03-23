@@ -14,7 +14,7 @@ const Contacts = React.createClass({
 
   requestMedia(name) {
     this.props.navigator.push({
-      name: 'startDate',
+      name: 'dates',
       passProps: {
         contactName: name
       }
@@ -40,7 +40,7 @@ const Contacts = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Select a Contact to request Photos/Videos</Text>
+        <Text>Contacts</Text>
         <ScrollView>
           {this.props.contacts ? this.displayContacts() : null}
         </ScrollView>
@@ -52,7 +52,7 @@ const Contacts = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    paddingTop: 20,
     borderWidth: 2,
     borderColor: 'green',
     justifyContent: 'center',
