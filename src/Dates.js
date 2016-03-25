@@ -50,10 +50,10 @@ const Dates = React.createClass({
           <Text style={styles.welcome}>
             youPics
           </Text>
-          <Text>
-            Request Photos/Videos from {this.props.contactName}
-          </Text>
         </View>
+        <Text>
+          Request Photos/Videos from {this.props.contactName}
+        </Text>
         <StartDate
           onStartDateChange={this.onStartDateChange}
           startDate={this.state.startDate}
@@ -74,12 +74,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'green',
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   header: {
-    flex: 4
-  }
+    flex: 1,
+    paddingTop: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#93DB70'
+  },
 });
 
 module.exports = Dates;

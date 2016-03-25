@@ -8,7 +8,7 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
-import StartDate from './StartDate';
+import TabApp from './TabBar';
 
 const Contacts = React.createClass({
 
@@ -22,6 +22,7 @@ const Contacts = React.createClass({
   },
 
   displayContacts() {
+    console.log('displaying contacts')
     return this.props.contacts.map((contact, index) => {
       const contactName = `${contact.givenName} ${contact.familyName}`;
       return (
@@ -40,8 +41,10 @@ const Contacts = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Contacts</Text>
-        <ScrollView>
+        <View style={styles.header}>
+          <Text>Contacts</Text>
+        </View>
+        <ScrollView style={styles.contactWrapper}>
           {this.props.contacts ? this.displayContacts() : null}
         </ScrollView>
       </View>
@@ -52,12 +55,21 @@ const Contacts = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     borderWidth: 2,
     borderColor: 'green',
-    justifyContent: 'center',
+    backgroundColor: '#F5FCFF'
+  },
+  header: {
+    flex: 1,
+    paddingTop: 20,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'center',
+    backgroundColor: '#93DB70'
+  },
+  contactWrapper: {
+    flex: 9,
+    borderWidth: 2,
+    borderColor: 'red'
   },
   contact: {
     height: 60,

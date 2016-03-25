@@ -14,10 +14,12 @@ import React, {
 
 import ContactsAPI from 'react-native-contacts';
 
+import Main from './src/Main';
 import Contacts from './src/Contacts';
 import Dates    from './src/Dates';
 
 const ROUTES = {
+  main: Main,
   contacts: Contacts,
   dates: Dates
 }
@@ -26,18 +28,11 @@ const youPics = React.createClass({
 
   getInitialState() {
     return {
-      images: null,
-      contacts: null
+      images: null
     }
   },
 
   componentDidMount() {
-    ContactsAPI.getAll((err, contacts) => {
-      this.setState({
-        contacts: contacts
-      });
-    });
-
     CameraRoll.getPhotos({first: 25})
       .then((data) => {
         this.setState({
@@ -56,30 +51,21 @@ const youPics = React.createClass({
 
   renderScene(route, navigator) {
     const Component = ROUTES[route.name];
-    if(route.name === 'contacts') {
-      return (
+    return (
+      <View style={styles.container}>
         <Component
           route={route}
           navigator={navigator}
-          contacts={this.state.contacts}
-        />
-      )
-    } else {
-      return (
-        <Component
-          route={route}
-          navigator={navigator}
-          {...route.passProps}
-        />
-      )
-    }
+          topNavigator={navigator} />
+      </View>
+    )
   },
 
   render() {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'contacts'}}
+        initialRoute={{name: 'main'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
       />
@@ -94,3 +80,21 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('youPics', () => youPics);
+
+    // const Component = ROUTES[route.name];
+    // if(route.name === 'main') {
+    //   return (
+    //     <Component
+    //       route={route}
+    //       navigator={navigator}
+    //     />
+    //   )
+    // } else {
+    //   return (
+    //     <Component
+    //       route={route}
+    //       navigator={navigator}
+    //       {...route.passProps}
+    //     />
+    //   )
+    // }
