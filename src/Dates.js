@@ -70,7 +70,6 @@ const Dates = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     borderWidth: 2,
     borderColor: 'green',
     justifyContent: 'center',

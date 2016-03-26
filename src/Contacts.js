@@ -8,8 +8,6 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
-import TabApp from './TabBar';
-
 const Contacts = React.createClass({
 
   requestMedia(name) {
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: 'yellow',
     backgroundColor: '#F5FCFF'
   },
   header: {

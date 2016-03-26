@@ -11,6 +11,13 @@ import React, {
 
 import ContactsAPI from 'react-native-contacts';
 import Contacts from './Contacts';
+import Dates from './Dates';
+
+const ROUTES = {
+  main: Main,
+  contacts: Contacts,
+  dates: Dates
+}
 
 const Main = React.createClass({
 
@@ -38,7 +45,7 @@ const Main = React.createClass({
   },
 
   renderScene(route, navigator) {
-    const Component = Contacts;
+    const Component = ROUTES[route.name];
     return (
       <View style={styles.container}>
         <Component
