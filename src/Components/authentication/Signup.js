@@ -22,16 +22,41 @@ const Signup = React.createClass({
   },
 
   onSignUpPress() {
-    // if (this.state.password !== this.state.passwordConfirmation) {
-    //   return this.setState({errorMessage: 'Your password do not match'});
-    // }
-    // if (this.state.username !== '' && (this.state.password === this.state.passwordConfirmation)) {
-    //   this.props.navigator.immediatelyResetRouteStack([{name: 'home'}]);
-    // }
-    this.state.firebase.push({
-      phoneNumber: this.state.phoneNumber,
-      password: this.state.password
-    })
+
+    if (this.state.password !== this.state.passwordConfirmation) {
+
+      return this.setState({errorMessage: 'Your password do not match'});
+
+    }
+
+    if (this.state.username !== '' && (this.state.password === this.state.passwordConfirmation)) {
+
+      const usersRef = new Firebase('https://gimmie.firebaseio.com/users');
+
+      const ranNum = Math.floor((Math.random() * 1000) + 1);
+
+      this.state.firebase.createUser({
+        email: `testing${ranNum}@gmail.com`,
+        password: 'testing'
+      }, (error, userData) => {
+
+        if (error) {
+          console.log(error);
+          this.setState({errorMessage: error.message});
+        } else {
+          console.log(userData);
+          usersRef.push({
+            userId: userData.uid,
+            phoneNumber: this.state.phoneNumber
+          });
+          this.props.navigator.push({
+            name: 'main'
+          })
+          this.props.navigator.immediatelyResetRouteStack([{name: 'main'}]);
+        }
+      })
+
+    }
   },
 
   onSigninPress() {

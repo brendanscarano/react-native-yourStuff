@@ -43,14 +43,6 @@ const youPics = React.createClass({
       })
   },
 
-  onStartDateChange(date) {
-    this.setState({startDate: date});
-  },
-
-  onEndDateChange(date) {
-    this.setState({endDate: date});
-  },
-
   renderScene(route, navigator) {
     const Component = ROUTES[route.name];
     return (
