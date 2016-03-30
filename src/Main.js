@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 
 import ContactsAPI from 'react-native-contacts';
-import Contacts from './Contacts';
+import Contacts from './Components/contacts/ContactList';
 import Dates from './Dates';
 
 const ROUTES = {

@@ -15,7 +15,7 @@ import React, {
 import ContactsAPI from 'react-native-contacts';
 
 import Main from './src/Main';
-import Contacts from './src/Contacts';
+import Contacts from './src/Components/contacts/ContactList';
 import Dates    from './src/Dates';
 import Signup from './src/Components/authentication/Signup';
 
@@ -59,7 +59,7 @@ const youPics = React.createClass({
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'signup'}}
+        initialRoute={{name: 'main'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
       />

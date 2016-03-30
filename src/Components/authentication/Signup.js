@@ -15,6 +15,7 @@ const Signup = React.createClass({
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/'),
       phoneNumber: '',
+      email: '',
       password: '',
       passwordConfirmation: '',
       errorMessage: ''
@@ -36,8 +37,10 @@ const Signup = React.createClass({
       const ranNum = Math.floor((Math.random() * 1000) + 1);
 
       this.state.firebase.createUser({
-        email: `testing${ranNum}@gmail.com`,
-        password: 'testing'
+        email: this.state.email.toLowerCase(),
+        password: this.state.password
+        // email: `testing${ranNum}@gmail.com`,
+        // password: 'testing'
       }, (error, userData) => {
 
         if (error) {
@@ -67,6 +70,13 @@ const Signup = React.createClass({
     return (
       <View style={styles.container}>
         <Text>Sign Up</Text>
+
+        <Text style={styles.label}>Email:</Text>
+        <TextInput
+          style={styles.input}
+          value={this.state.email}
+          onChangeText={(text) => this.setState({email: text})}
+          />
 
         <Text style={styles.label}>Phone Number:</Text>
         <TextInput
