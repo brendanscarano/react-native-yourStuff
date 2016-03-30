@@ -3,7 +3,6 @@
 import React, {
   View,
   Text,
-  ScrollView,
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
@@ -37,17 +36,9 @@ const ContactListItem = React.createClass({
     // });
   },
 
-  displayContactListItem() {
-    console.log('displaying contacts')
-    return this.props.contacts.map((contact, index) => {
-      const contactName = `${contact.givenName} ${contact.familyName}`;
-
-    })
-  },
-
   render() {
     return (
-      <View key={this.props.index}>
+      <View>
         <TouchableHighlight
           onPress={() => this.requestMedia(this.props.name, this.props.phoneNumber)}
           underlayColor='red'

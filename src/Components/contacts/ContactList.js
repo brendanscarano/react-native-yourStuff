@@ -4,8 +4,7 @@ import React, {
   View,
   Text,
   ScrollView,
-  StyleSheet,
-  TouchableHighlight
+  StyleSheet
 } from 'react-native';
 
 import ContactListItem from './ContactListItem';
@@ -18,7 +17,7 @@ const Contacts = React.createClass({
       const contactName = `${contact.givenName} ${contact.familyName}`;
       return (
         <ContactListItem
-          index={index}
+          key={index}
           name={contactName}
           phoneNumber={contact.phoneNumbers[0].number}
         />
