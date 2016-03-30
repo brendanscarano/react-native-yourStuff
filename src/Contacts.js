@@ -10,13 +10,31 @@ import React, {
 
 const Contacts = React.createClass({
 
-  requestMedia(name) {
-    this.props.navigator.push({
-      name: 'dates',
-      passProps: {
-        contactName: name
+  requestMedia(name, number) {
+
+    const flatNum = number.replace(/-/g, '');
+    const ref = new Firebase('https://gimmie.firebaseio.com/users');
+
+    ref.orderByChild('phoneNumber').equalTo(flatNum).on('value', (snapshot) => {
+
+      const contact = snapshot.val();
+
+      if (contact) {
+        const contactId = Object.keys(contact)[0];
+        const phoneNumber = contact[contactId].phoneNumber;
+        console.log(phoneNumber);
+      } else {
+        console.log('No user with this phone number!');
       }
-    });
+
+    })
+
+    // this.props.navigator.push({
+    //   name: 'dates',
+    //   passProps: {
+    //     contactName: name
+    //   }
+    // });
   },
 
   displayContacts() {
@@ -26,7 +44,7 @@ const Contacts = React.createClass({
       return (
         <View key={index}>
           <TouchableHighlight
-            onPress={() => this.requestMedia(contact.givenName)}
+            onPress={() => this.requestMedia(contact.givenName, contact.phoneNumbers[0].number)}
             underlayColor='red'
             style={styles.contact}>
             <Text>{contactName} {contact.phoneNumbers[0].number}</Text>
