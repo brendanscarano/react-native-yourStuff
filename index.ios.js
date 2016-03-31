@@ -4,7 +4,6 @@
 
 import React, {
   AppRegistry,
-  DatePickerIOS,
   StyleSheet,
   Text,
   View,
@@ -12,18 +11,14 @@ import React, {
   Navigator
 } from 'react-native';
 
-import ContactsAPI from 'react-native-contacts';
-
 import Main from './src/Main';
-import Contacts from './src/Components/contacts/ContactList';
-import Dates    from './src/Dates';
-import Signup from './src/Components/authentication/Signup';
+import PhoneLoginName from './src/Components/authentication/phoneLoginName';
+import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
 
 const ROUTES = {
   main: Main,
-  contacts: Contacts,
-  dates: Dates,
-  signup: Signup
+  phoneLoginName: PhoneLoginName,
+  phoneLoginNumber: PhoneLoginNumber
 }
 
 const youPics = React.createClass({
@@ -44,6 +39,8 @@ const youPics = React.createClass({
   },
 
   renderScene(route, navigator) {
+    console.log(route);
+    console.log(navigator);
     const Component = ROUTES[route.name];
     return (
       <View style={styles.container}>
@@ -59,7 +56,7 @@ const youPics = React.createClass({
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'main'}}
+        initialRoute={{name: 'phoneLoginName'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
       />
