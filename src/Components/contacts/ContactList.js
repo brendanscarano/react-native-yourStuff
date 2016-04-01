@@ -12,7 +12,6 @@ import ContactListItem from './ContactListItem';
 const Contacts = React.createClass({
 
   displayContacts() {
-    console.log('displaying contacts')
     return this.props.contacts.map((contact, index) => {
       const contactName = `${contact.givenName} ${contact.familyName}`;
       return (

@@ -29,7 +29,6 @@ const Main = React.createClass({
   },
 
   componentDidMount() {
-    console.log('component mounted');
     ContactsAPI.getAll((err, contacts) => {
       this.setState({
         contacts: contacts
@@ -38,7 +37,6 @@ const Main = React.createClass({
   },
 
   setTab(tabItem) {
-    console.log(tabItem);
     this.setState({
       selectedTab: tabItem
     });

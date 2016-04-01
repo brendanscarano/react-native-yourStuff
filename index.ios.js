@@ -39,15 +39,14 @@ const youPics = React.createClass({
   },
 
   renderScene(route, navigator) {
-    console.log(route);
-    console.log(navigator);
     const Component = ROUTES[route.name];
     return (
       <View style={styles.container}>
         <Component
           route={route}
           navigator={navigator}
-          topNavigator={navigator} />
+          {...route.passProps}
+          />
       </View>
     )
   },
@@ -73,21 +72,3 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('youPics', () => youPics);
-
-    // const Component = ROUTES[route.name];
-    // if(route.name === 'main') {
-    //   return (
-    //     <Component
-    //       route={route}
-    //       navigator={navigator}
-    //     />
-    //   )
-    // } else {
-    //   return (
-    //     <Component
-    //       route={route}
-    //       navigator={navigator}
-    //       {...route.passProps}
-    //     />
-    //   )
-    // }

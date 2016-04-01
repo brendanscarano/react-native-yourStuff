@@ -17,7 +17,12 @@ const PhoneLoginName = React.createClass({
   },
 
   inputName() {
-    this.props.navigator.push({name: 'phoneLoginNumber'});
+    this.props.navigator.push({
+      name: 'phoneLoginNumber',
+      passProps: {
+        name: this.state.name
+      }
+    });
   },
 
   render() {
