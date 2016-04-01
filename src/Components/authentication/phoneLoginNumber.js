@@ -42,14 +42,15 @@ const PhoneLoginNumber = React.createClass({
         verificationCode: ranNum
       });
 
-      this.props.navigator.immediatelyResetRouteStack([{name: 'main'}]);
+      this.props.navigator.push({
+        name: 'verificationCode',
+        passProps: {
+          code: ranNum
+        }
+      });
 
     }
 
-  },
-
-  onSigninPress() {
-    this.props.navigator.pop();
   },
 
   render() {
@@ -66,7 +67,7 @@ const PhoneLoginNumber = React.createClass({
           />
 
         <Text style={styles.label}>{this.state.errorMessage}</Text>
-        <Button text={'Sign Up'} onPress={this.onSignUpPress} />
+        <Button text={'Send Code'} onPress={this.onSignUpPress} />
       </View>
     );
   },

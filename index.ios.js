@@ -14,11 +14,13 @@ import React, {
 import Main from './src/Main';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
 import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
+import VerificationCode from './src/Components/authentication/verificationCode';
 
 const ROUTES = {
   main: Main,
   phoneLoginName: PhoneLoginName,
-  phoneLoginNumber: PhoneLoginNumber
+  phoneLoginNumber: PhoneLoginNumber,
+  verificationCode: VerificationCode
 }
 
 const youPics = React.createClass({
