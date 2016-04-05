@@ -19,8 +19,6 @@ const verificationCode = React.createClass({
   },
 
   onSignUpPress() {
-    console.log(this.state)
-    console.log(this.props)
     if (this.state.verificationCode === this.props.code) {
       this.props.navigator.immediatelyResetRouteStack([{name: 'main'}]);
     } else {

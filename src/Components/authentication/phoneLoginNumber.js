@@ -3,7 +3,8 @@ import React, {
   View,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
 import Firebase from 'firebase';
@@ -16,6 +17,12 @@ const PhoneLoginNumber = React.createClass({
       firebase: new Firebase('https://gimmie.firebaseio.com/users'),
       phoneNumber: ''
     }
+  },
+
+  componentDidMount() {
+    AsyncStorage.getItem('user').then((value) => {
+      console.log(value);
+    });
   },
 
   randomNumber(numberOfDigits) {
