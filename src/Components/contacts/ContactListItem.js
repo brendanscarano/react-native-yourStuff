@@ -19,21 +19,23 @@ const ContactListItem = React.createClass({
       const contact = snapshot.val();
 
       if (contact) {
+        console.log(contact);
         const contactId = Object.keys(contact)[0];
+        const name = contact[contactId].name;
         const phoneNumber = contact[contactId].phoneNumber;
         console.log(phoneNumber);
+        this.props.navigator.push({
+          name: 'dates',
+          passProps: {
+            contactName: name
+          }
+        });
       } else {
         console.log('No user with this phone number!');
       }
 
     })
 
-    // this.props.navigator.push({
-    //   name: 'dates',
-    //   passProps: {
-    //     contactName: name
-    //   }
-    // });
   },
 
   render() {

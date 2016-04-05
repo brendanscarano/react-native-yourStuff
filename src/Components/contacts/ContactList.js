@@ -16,6 +16,8 @@ const Contacts = React.createClass({
       const contactName = `${contact.givenName} ${contact.familyName}`;
       return (
         <ContactListItem
+          route={this.props.route}
+          navigator={this.props.navigator}
           key={index}
           name={contactName}
           phoneNumber={contact.phoneNumbers[0].number}
