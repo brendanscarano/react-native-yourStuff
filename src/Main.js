@@ -49,7 +49,8 @@ const Main = React.createClass({
         <Component
           route={route}
           navigator={navigator}
-          contacts={this.state.contacts}/>
+          contacts={this.state.contacts}
+          {...route.passProps}/>
       </View>
     )
   },

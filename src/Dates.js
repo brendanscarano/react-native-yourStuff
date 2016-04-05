@@ -4,11 +4,15 @@ import React, {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
+import Firebase from 'firebase';
+
 import StartDate from './StartDate';
-import EndDate   from './EndDate';
+import EndDate from './EndDate';
+import Button from './Components/authentication/Button';
 
 const Dates = React.createClass({
 
@@ -20,12 +24,18 @@ const Dates = React.createClass({
   },
 
   getInitialState() {
-    console.log(this.state);
-    console.log(this.props);
     return {
+      firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
+      user: '',
       startDate: this.props.startDate,
       endDate: this.props.endDate
     }
+  },
+
+  componentDidMount() {
+    AsyncStorage.getItem('user').then((value) => {
+      this.setState({user: value});
+    });
   },
 
   onStartDateChange(date) {
@@ -40,28 +50,38 @@ const Dates = React.createClass({
     this.props.navigator.pop();
   },
 
+  requestCameraRoll() {
+    this.state.firebase.push({
+      requester: this.state.user,
+      requestedUser: this.props.contactName,
+      startDate: 'April 5th 2016',
+      endDate: 'April 6th 2016'
+    })
+  },
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableHighlight onPress={this.onBack}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.onBack}>
             <Text>Back</Text>
           </TouchableHighlight>
-          <Text style={styles.welcome}>
-            youPics
+          <Text style={styles.headerTitle}>
+            Gimmie
           </Text>
         </View>
         <Text>
           Request Photos/Videos from {this.props.contactName}
         </Text>
         <StartDate
+          style={styles.startDate}
           onStartDateChange={this.onStartDateChange}
           startDate={this.state.startDate}
         />
-        <EndDate
-          onEndDateChange={this.onEndDateChange}
-          endDate={this.state.endDate}
-        />
+
+        <Button text={'Request Camera Roll'} onPress={this.requestCameraRoll} />
       </View>
     );
   }
@@ -73,15 +93,28 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'green',
     justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   header: {
-    flex: 1,
-    paddingTop: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#93DB70'
+    backgroundColor:'#81c04d',
+    paddingTop: 30,
+    paddingBottom: 10,
+    flexDirection: 'row',
   },
+  headerTitle: {
+    flex: 1,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  button: {
+    width: 50
+  },
+  startDate: {
+    flex: 5
+  },
+  endDate: {
+    flex: 2
+  }
 });
 
 module.exports = Dates;
@@ -89,5 +122,11 @@ module.exports = Dates;
 // <ImageWrapper
 //   images={this.state.images}
 //   startDate={this.state.startDate}
+//   endDate={this.state.endDate}
+// />
+
+// <EndDate
+//   style={styles.endDate}
+//   onEndDateChange={this.onEndDateChange}
 //   endDate={this.state.endDate}
 // />

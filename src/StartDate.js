@@ -7,9 +7,12 @@ import React, {
   View
 } from 'react-native';
 
+import moment from 'moment';
+
 const StartDate = React.createClass({
 
   onDateChange: function(date) {
+    console.log(date);
     this.props.onStartDateChange(date);
   },
 
@@ -17,6 +20,7 @@ const StartDate = React.createClass({
     return (
       <View style={styles.container}>
         <Text>*** Start Date ***</Text>
+        <Text>{this.props.startDate ? moment(this.props.startDate).format('MMMM Do YYYY') : null}</Text>
         <DatePickerIOS
           date={this.props.startDate}
           mode="date"
@@ -29,7 +33,6 @@ const StartDate = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
     marginTop: 20,
     borderWidth: 2,
     borderColor: 'green',

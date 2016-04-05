@@ -57,7 +57,7 @@ const youPics = React.createClass({
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'phoneLoginName'}}
+        initialRoute={{name: 'main'}}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
       />

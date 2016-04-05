@@ -24,6 +24,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		DC0A83041C98EA700024D2DB /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0A82FA1C98EA440024D2DB /* libRCTCameraRoll.a */; };
 		DC0A830B1CA08F080024D2DB /* libRCTContacts.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0A830A1CA08EEA0024D2DB /* libRCTContacts.a */; };
+		DC2E77D31CB32BB5001A63E7 /* libRCTTwilio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2E77CF1CB32B93001A63E7 /* libRCTTwilio.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,13 @@
 			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
 			remoteInfo = RCTContacts;
 		};
+		DC2E77CE1CB32B93001A63E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC2E77C11CB32B93001A63E7 /* RCTTwilio.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DB0862131BF2D3AF00A97135;
+			remoteInfo = RCTTwilio;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +152,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		DC0A82F41C98EA440024D2DB /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		DC0A83051CA08EEA0024D2DB /* RCTContacts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTContacts.xcodeproj; path = "../node_modules/react-native-contacts/ios/RCTContacts.xcodeproj"; sourceTree = "<group>"; };
+		DC2E77C11CB32B93001A63E7 /* RCTTwilio.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTTwilio.xcodeproj; path = "../node_modules/react-native-twilio/ios/RCTTwilio.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +170,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				DC0A830B1CA08F080024D2DB /* libRCTContacts.a in Frameworks */,
+				DC2E77D31CB32BB5001A63E7 /* libRCTTwilio.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				DC0A83041C98EA700024D2DB /* libRCTCameraRoll.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -282,6 +292,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DC2E77C11CB32B93001A63E7 /* RCTTwilio.xcodeproj */,
 				DC0A83051CA08EEA0024D2DB /* RCTContacts.xcodeproj */,
 				DC0A82F41C98EA440024D2DB /* RCTCameraRoll.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -339,6 +350,14 @@
 			isa = PBXGroup;
 			children = (
 				DC0A830A1CA08EEA0024D2DB /* libRCTContacts.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC2E77C21CB32B93001A63E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC2E77CF1CB32B93001A63E7 /* libRCTTwilio.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -446,6 +465,10 @@
 					ProjectRef = 832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */;
 				},
 				{
+					ProductGroup = DC2E77C21CB32B93001A63E7 /* Products */;
+					ProjectRef = DC2E77C11CB32B93001A63E7 /* RCTTwilio.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302E01ABCB9EE00DB3ED1 /* Products */;
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
 				},
@@ -549,6 +572,13 @@
 			fileType = archive.ar;
 			path = libRCTContacts.a;
 			remoteRef = DC0A83091CA08EEA0024D2DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DC2E77CF1CB32B93001A63E7 /* libRCTTwilio.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTTwilio.a;
+			remoteRef = DC2E77CE1CB32B93001A63E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

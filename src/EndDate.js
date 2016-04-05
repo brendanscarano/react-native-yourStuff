@@ -7,6 +7,8 @@ import React, {
   View,
 } from 'react-native';
 
+import moment from 'moment';
+
 const EndDate = React.createClass({
 
   onDateChange: function(date) {
@@ -17,6 +19,7 @@ const EndDate = React.createClass({
     return (
       <View style={styles.container}>
         <Text>*** End Date ***</Text>
+        <Text>{this.props.endDate ? moment(this.props.endDate).format('MMMM Do YYYY') : null}</Text>
         <DatePickerIOS
           date={this.props.endDate}
           mode="date"
