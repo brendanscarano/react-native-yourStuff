@@ -48,7 +48,8 @@ const PhoneLoginNumber = React.createClass({
       this.state.firebase.push({
         name: this.props.name,
         phoneNumber: this.state.phoneNumber,
-        verificationCode: ranNum
+        verificationCode: ranNum,
+        created_at: new Date()
       });
 
       this.props.navigator.push({
