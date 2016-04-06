@@ -36,8 +36,8 @@ const EndDate = React.createClass({
     this.state.firebase.push({
       requester: 'brendan',
       requestedUser: this.props.contactName,
-      startDate: 'April 5th 2016',
-      endDate: 'April 6th 2016'
+      startDate: moment(this.props.startDate).format('MMMM Do YYYY'),
+      endDate: moment(this.state.endDate).format('MMMM Do YYYY')
     })
   },
 

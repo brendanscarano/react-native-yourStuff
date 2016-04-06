@@ -72,7 +72,7 @@ const youPics = React.createClass({
     if (this.state.user !== null) {
       return {name: 'phoneLoginName'};
     } else {
-      return {name: 'contacts'};
+      return {name: 'startDate'};
     }
 
     // return {name: 'phoneLoginName'};
