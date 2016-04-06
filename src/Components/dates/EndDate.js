@@ -11,8 +11,29 @@ import moment from 'moment';
 
 const EndDate = React.createClass({
 
-  onDateChange: function(date) {
-    this.props.onEndDateChange(date);
+  getDefaultProps() {
+    return {
+      endDate: new Date()
+    }
+  },
+
+  getInitialState() {
+    return {
+      endDate: this.props.endDate
+    }
+  },
+
+  endDateChange(date) {
+    this.setState({endDate: date});
+  },
+
+  requestCameraRoll() {
+    this.state.firebase.push({
+      requester: this.state.user,
+      requestedUser: this.props.contactName,
+      startDate: 'April 5th 2016',
+      endDate: 'April 6th 2016'
+    })
   },
 
   render() {
@@ -23,7 +44,7 @@ const EndDate = React.createClass({
         <DatePickerIOS
           date={this.props.endDate}
           mode="date"
-          onDateChange={this.onDateChange}
+          onDateChange={this.endDateChange}
         />
       </View>
     );

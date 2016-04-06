@@ -14,6 +14,7 @@ import React, {
 
 import ContactList from './src/Components/contacts/ContactList';
 import Dates from './src/Components/dates/Dates';
+import StartDate from './src/Components/dates/StartDate';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
 import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
 import VerificationCode from './src/Components/authentication/verificationCode';
@@ -21,6 +22,7 @@ import VerificationCode from './src/Components/authentication/verificationCode';
 const ROUTES = {
   contacts: ContactList,
   dates: Dates,
+  startDate: StartDate,
   phoneLoginName: PhoneLoginName,
   phoneLoginNumber: PhoneLoginNumber,
   verificationCode: VerificationCode
