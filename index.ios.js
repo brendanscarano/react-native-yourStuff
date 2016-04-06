@@ -13,7 +13,7 @@ import React, {
 } from 'react-native';
 
 import ContactList from './src/Components/contacts/ContactList';
-import Dates from './src/Components/dates/Dates';
+import Messages from './src/Components/messages/Messages';
 import StartDate from './src/Components/dates/StartDate';
 import EndDate from './src/Components/dates/EndDate';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
@@ -22,6 +22,7 @@ import VerificationCode from './src/Components/authentication/verificationCode';
 
 const ROUTES = {
   contacts: ContactList,
+  messages: Messages,
   startDate: StartDate,
   endDate: EndDate,
   phoneLoginName: PhoneLoginName,
@@ -75,8 +76,8 @@ const youPics = React.createClass({
     //   return {name: 'startDate'};
     // }
 
-    return {name: 'phoneLoginName'};
-    // return {name: 'contacts'};
+    // return {name: 'phoneLoginName'};
+    return {name: 'messages'};
   },
 
   render() {

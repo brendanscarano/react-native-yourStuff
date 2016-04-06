@@ -4,7 +4,8 @@ import React, {
   View,
   Text,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  TouchableHighlight
 } from 'react-native';
 
 import ContactsAPI from 'react-native-contacts';
@@ -41,11 +42,22 @@ const Contacts = React.createClass({
     })
   },
 
+  toMessages() {
+    this.props.navigator.push({
+      name: 'messages'
+    })
+  },
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text>Contacts</Text>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toMessages}>
+            <Text>Messages</Text>
+          </TouchableHighlight>
         </View>
         <ScrollView style={styles.contactWrapper}>
           {this.state.contacts ? this.displayContacts() : null}
