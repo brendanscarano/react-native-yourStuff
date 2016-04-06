@@ -7,7 +7,6 @@ import React, {
   AsyncStorage
 } from 'react-native';
 
-
 import Button from './Button';
 
 const PhoneLoginName = React.createClass({

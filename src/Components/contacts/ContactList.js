@@ -7,12 +7,27 @@ import React, {
   StyleSheet
 } from 'react-native';
 
+import ContactsAPI from 'react-native-contacts';
 import ContactListItem from './ContactListItem';
 
 const Contacts = React.createClass({
 
+  getInitialState() {
+    return {
+      contacts: null
+    }
+  },
+
+  componentDidMount() {
+    ContactsAPI.getAll((err, contacts) => {
+      this.setState({
+        contacts: contacts
+      });
+    });
+  },
+
   displayContacts() {
-    return this.props.contacts.map((contact, index) => {
+    return this.state.contacts.map((contact, index) => {
       const contactName = `${contact.givenName} ${contact.familyName}`;
       return (
         <ContactListItem
@@ -33,7 +48,7 @@ const Contacts = React.createClass({
           <Text>Contacts</Text>
         </View>
         <ScrollView style={styles.contactWrapper}>
-          {this.props.contacts ? this.displayContacts() : null}
+          {this.state.contacts ? this.displayContacts() : null}
         </ScrollView>
       </View>
     );

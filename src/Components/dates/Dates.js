@@ -12,7 +12,7 @@ import Firebase from 'firebase';
 
 import StartDate from './StartDate';
 import EndDate from './EndDate';
-import Button from './Components/authentication/Button';
+import Button from '../authentication/Button';
 
 const Dates = React.createClass({
 

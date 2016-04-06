@@ -11,7 +11,7 @@ import React, {
 
 import ContactsAPI from 'react-native-contacts';
 import Contacts from './Components/contacts/ContactList';
-import Dates from './Dates';
+import Dates from './Components/dates/Dates';
 
 const ROUTES = {
   main: Main,
