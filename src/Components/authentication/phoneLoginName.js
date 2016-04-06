@@ -19,13 +19,11 @@ const PhoneLoginName = React.createClass({
 
   inputName() {
 
-    AsyncStorage.setItem('user', this.state.name);
     // const accountSid = 'AC943ea98df53c2f3084170fd57b251604';
     // const authToken = 'ab0ba128a02684790bc5d79b4d70f34e';
 
     // const client = twilio(accountSid)(authToken);
     // console.log(twilio);
-
 
     this.props.navigator.push({
       name: 'phoneLoginNumber',
@@ -38,11 +36,14 @@ const PhoneLoginName = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>What is your name?</Text>
+        <Text>Welcome to Gimme!</Text>
+        <Text>The best place to get your friends photos and videos they have been keeping on their Camera Roll</Text>
+        <Text>Now first, what is your name?</Text>
         <TextInput
           style={styles.input}
           autoFocus={true}
           value={this.state.name}
+          placeholder='Your Name'
           onChangeText={(text) => this.setState({name: text})}
           />
 

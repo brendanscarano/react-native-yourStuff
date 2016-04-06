@@ -34,7 +34,7 @@ const youPics = React.createClass({
   getInitialState() {
     return {
       images: null,
-      user: null
+      currentUser: null
     }
   },
 
@@ -43,7 +43,7 @@ const youPics = React.createClass({
     AsyncStorage.getItem('user').then((value) => {
       console.log(value);
       this.setState({
-        user: brendan
+        currentUser: value
       })
     });
 
@@ -69,13 +69,13 @@ const youPics = React.createClass({
   },
 
   loadInitialRoute() {
-    if (this.state.user !== null) {
-      return {name: 'phoneLoginName'};
-    } else {
-      return {name: 'startDate'};
-    }
+    // if (this.state.user !== null) {
+    //   return {name: 'phoneLoginName'};
+    // } else {
+    //   return {name: 'startDate'};
+    // }
 
-    // return {name: 'phoneLoginName'};
+    return {name: 'phoneLoginName'};
     // return {name: 'contacts'};
   },
 

@@ -1,9 +1,10 @@
-'use strict';
+ 'use strict';
 import React, {
   View,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
+  AsyncStorage
 } from 'react-native';
 
 import Firebase from 'firebase';
@@ -19,8 +20,16 @@ const verificationCode = React.createClass({
   },
 
   onSignUpPress() {
-    if (this.state.verificationCode === this.props.code) {
-      this.props.navigator.immediatelyResetRouteStack([{name: 'main'}]);
+
+    if (this.state.verificationCode == this.props.code) {
+
+      AsyncStorage.setItem('user', JSON.stringify({
+        userName: 'Brendan',
+        phoneNumber: '15163187361'
+      }));
+
+      this.props.navigator.immediatelyResetRouteStack([{name: 'contacts'}]);
+
     } else {
       this.setState({errorMessage: 'Whoops, that\'s not the right code!'});
     }
@@ -30,13 +39,15 @@ const verificationCode = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Enter verification code:</Text>
+        <Text>You're almost done!</Text>
+        <Text>Just enter the verification code we just texted you, that way we know it's you...</Text>
         <TextInput
           style={styles.input}
           autoFocus={true}
+          placeholder='4-digit Verification Code'
           value={this.state.verificationCode}
           keyboardType='numeric'
-          onChangeText={(text) => this.setState({verificationCode: text})}
+          onChangeText={(text) => {this.setState({verificationCode: text})}}
           />
 
         <Text style={styles.label}>{this.state.errorMessage}</Text>

@@ -39,7 +39,8 @@ const PhoneLoginNumber = React.createClass({
 
     if (this.state.phoneNumber !== '') {
 
-      const ranNum = this.randomNumber(4);
+      // const ranNum = this.randomNumber(4);
+      const ranNum = 1234;
 
       console.log(ranNum);
 
@@ -65,11 +66,13 @@ const PhoneLoginNumber = React.createClass({
       <View style={styles.container}>
         <Text>Hi {this.props.name}!</Text>
         <Text>What Is Your Phone Number</Text>
+        <Text>We promise we'll never spam you! This just makes it easy for you to use your contacts list, and request photos/videos that way.</Text>
         <TextInput
           style={styles.input}
           autoFocus={true}
           value={this.state.phoneNumber}
           keyboardType='phone-pad'
+          placeholder='(555) 123-5678'
           onChangeText={(text) => this.setState({phoneNumber: text})}
           />
 
