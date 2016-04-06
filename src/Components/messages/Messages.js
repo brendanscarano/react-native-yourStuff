@@ -7,14 +7,39 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
+import Inbox from './Inbox';
+
 const Messages = React.createClass({
 
+  getInitialState() {
+    return {
+      selectedTab: 'inbox'
+    }
+  },
+
+  componentDidMount() {
+    // get a users requests
+    // get a users inbox
+  }
+
   getInbox() {
-    console.log('getting inbox');
+    this.setState({
+      selectedTab: 'inbox'
+    });
   },
 
   getRequests() {
-    console.log('getting requests');
+    this.setState({
+      selectedTab: 'requests'
+    });
+  },
+
+  renderMessageSection() {
+    if(this.state.selectedTab === 'inbox') {
+      return (
+        <Inbox />
+      )
+    }
   },
 
   render() {
@@ -39,7 +64,7 @@ const Messages = React.createClass({
         </View>
 
         <View style={styles.messageWrapper}>
-          <Text>Messages Go here</Text>
+          {this.renderMessageSection()}
         </View>
       </View>
     )
