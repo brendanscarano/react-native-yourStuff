@@ -27,7 +27,8 @@ const ContactListItem = React.createClass({
         this.props.navigator.push({
           name: 'startDate',
           passProps: {
-            contactName: name
+            contactName: name,
+            contactNumber: phoneNumber
           }
         });
 

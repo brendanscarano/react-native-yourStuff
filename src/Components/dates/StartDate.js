@@ -35,6 +35,7 @@ const StartDate = React.createClass({
       name: 'endDate',
       passProps: {
         contactName: this.props.contactName,
+        contactNumber: this.props.contactNumber,
         startDate: this.state.startDate
       }
     });

@@ -5,7 +5,8 @@ import React, {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 import moment from 'moment';
@@ -33,12 +34,21 @@ const EndDate = React.createClass({
   },
 
   requestCameraRoll() {
-    this.state.firebase.push({
-      requester: 'brendan',
-      requestedUser: this.props.contactName,
-      startDate: moment(this.props.startDate).format('MMMM Do YYYY'),
-      endDate: moment(this.state.endDate).format('MMMM Do YYYY')
-    })
+
+    AsyncStorage.getItem('user').then((value) => {
+
+      const user = JSON.parse(value);
+
+      this.state.firebase.push({
+        yourName: user.userName,
+        yourNumber: user.phoneNumber,
+        requestedUserName: this.props.contactName,
+        requestedUserNumber: this.props.contactNumber,
+        startDate: moment(this.props.startDate).format('MMMM Do YYYY'),
+        endDate: moment(this.state.endDate).format('MMMM Do YYYY')
+      })
+    });
+
   },
 
   render() {
