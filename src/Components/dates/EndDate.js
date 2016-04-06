@@ -5,9 +5,13 @@ import React, {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight
 } from 'react-native';
 
 import moment from 'moment';
+import Firebase from 'firebase';
+
+import Button from '../authentication/Button';
 
 const EndDate = React.createClass({
 
@@ -19,6 +23,7 @@ const EndDate = React.createClass({
 
   getInitialState() {
     return {
+      firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
       endDate: this.props.endDate
     }
   },
@@ -29,7 +34,7 @@ const EndDate = React.createClass({
 
   requestCameraRoll() {
     this.state.firebase.push({
-      requester: this.state.user,
+      requester: 'brendan',
       requestedUser: this.props.contactName,
       startDate: 'April 5th 2016',
       endDate: 'April 6th 2016'
@@ -39,13 +44,25 @@ const EndDate = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>*** End Date ***</Text>
-        <Text>{this.props.endDate ? moment(this.props.endDate).format('MMMM Do YYYY') : null}</Text>
+        <View style={styles.header}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.onBack}>
+            <Text>Contacts</Text>
+          </TouchableHighlight>
+          <Text style={styles.headerTitle}>
+            Gimme
+          </Text>
+        </View>
+        <Text>Hey {this.props.contactName}! I would like your Camera Roll pictures and videos from...</Text>
+        <Text>Start Date: {moment(this.props.startDate).format('MMMM Do YYYY')}</Text>
+        <Text>End Date: {moment(this.state.endDate).format('MMMM Do YYYY')}</Text>
         <DatePickerIOS
-          date={this.props.endDate}
+          date={this.state.endDate}
           mode="date"
           onDateChange={this.endDateChange}
         />
+        <Button text={'Gimmie'} onPress={this.requestCameraRoll}/>
       </View>
     );
   }

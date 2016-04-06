@@ -31,7 +31,13 @@ const StartDate = React.createClass({
   },
 
   selectEndDate() {
-
+    this.props.navigator.push({
+      name: 'endDate',
+      passProps: {
+        contactName: this.props.contactName,
+        startDate: this.state.startDate
+      }
+    });
   },
 
   render() {
@@ -41,16 +47,16 @@ const StartDate = React.createClass({
           <TouchableHighlight
             style={styles.button}
             onPress={this.onBack}>
-            <Text>Back</Text>
+            <Text>Contacts</Text>
           </TouchableHighlight>
           <Text style={styles.headerTitle}>
             Gimme
           </Text>
         </View>
-        <Text>*** Start Date ***</Text>
-        <Text>{moment(this.state.startDate).format('MMMM Do YYYY')}</Text>
+        <Text>Hey {this.props.contactName}! I would like your Camera Roll pictures and videos from...</Text>
+        <Text>Start Date: {moment(this.state.startDate).format('MMMM Do YYYY')}</Text>
         <DatePickerIOS
-          date={this.props.startDate}
+          date={this.state.startDate}
           mode="date"
           onDateChange={this.startDateChange}
         />
