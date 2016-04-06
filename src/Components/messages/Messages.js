@@ -13,14 +13,26 @@ const Messages = React.createClass({
 
   getInitialState() {
     return {
-      selectedTab: 'inbox'
+      firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
+      selectedTab: 'inbox',
+      requests: null
     }
   },
 
   componentDidMount() {
     // get a users requests
+    // where yourNumber === AsyncStorage user phoneNumber
+    // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
+    //   console.log(snapshot.val());
+    // });
+    this.state.firebase.once('value', (snap) => {
+      this.setState({requests: snap.val()});
+      console.log(this.state);
+    })
+
+
     // get a users inbox
-  }
+  },
 
   getInbox() {
     this.setState({
