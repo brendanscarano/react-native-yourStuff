@@ -8,13 +8,14 @@ import React, {
 } from 'react-native';
 
 import Inbox from './Inbox';
+import RequestWrapper from './RequestWrapper';
 
 const Messages = React.createClass({
 
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'inbox',
+      selectedTab: 'requests',
       requests: null
     }
   },
@@ -27,7 +28,6 @@ const Messages = React.createClass({
     // });
     this.state.firebase.once('value', (snap) => {
       this.setState({requests: snap.val()});
-      console.log(this.state);
     })
 
 
@@ -50,6 +50,10 @@ const Messages = React.createClass({
     if(this.state.selectedTab === 'inbox') {
       return (
         <Inbox />
+      )
+    } else {
+      return (
+        <RequestWrapper requests={this.state.requests}/>
       )
     }
   },

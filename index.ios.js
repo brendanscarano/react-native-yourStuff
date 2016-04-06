@@ -42,7 +42,6 @@ const youPics = React.createClass({
   componentDidMount() {
 
     AsyncStorage.getItem('user').then((value) => {
-      console.log(value);
       this.setState({
         currentUser: value
       })
