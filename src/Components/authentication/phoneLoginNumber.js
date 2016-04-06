@@ -8,6 +8,7 @@ import React, {
 } from 'react-native';
 
 import Firebase from 'firebase';
+import Emoji from 'react-native-emoji';
 import Button from './Button';
 
 const PhoneLoginNumber = React.createClass({
@@ -64,7 +65,7 @@ const PhoneLoginNumber = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hi {this.props.name}!</Text>
+        <Text><Emoji name='wave'/> Hi {this.props.name}!</Text>
         <Text>What Is Your Phone Number</Text>
         <Text>We promise we'll never spam you! This just makes it easy for you to use your contacts list, and request photos/videos that way.</Text>
         <TextInput

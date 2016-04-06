@@ -75,8 +75,8 @@ const youPics = React.createClass({
     //   return {name: 'startDate'};
     // }
 
-    // return {name: 'phoneLoginName'};
-    return {name: 'contacts'};
+    return {name: 'phoneLoginName'};
+    // return {name: 'contacts'};
   },
 
   render() {
