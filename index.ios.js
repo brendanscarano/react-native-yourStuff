@@ -8,16 +8,19 @@ import React, {
   Text,
   View,
   CameraRoll,
-  Navigator
+  Navigator,
+  AsyncStorage
 } from 'react-native';
 
-import Main from './src/Main';
+import ContactList from './src/Components/contacts/ContactList';
+import Dates from './src/Components/dates/Dates';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
 import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
 import VerificationCode from './src/Components/authentication/verificationCode';
 
 const ROUTES = {
-  main: Main,
+  contacts: ContactList,
+  dates: Dates,
   phoneLoginName: PhoneLoginName,
   phoneLoginNumber: PhoneLoginNumber,
   verificationCode: VerificationCode
@@ -27,11 +30,20 @@ const youPics = React.createClass({
 
   getInitialState() {
     return {
-      images: null
+      images: null,
+      user: null
     }
   },
 
   componentDidMount() {
+
+    AsyncStorage.getItem('user').then((value) => {
+      console.log(value);
+      this.setState({
+        user: brendan
+      })
+    });
+
     CameraRoll.getPhotos({first: 25})
       .then((data) => {
         this.setState({
@@ -53,11 +65,22 @@ const youPics = React.createClass({
     )
   },
 
+  loadInitialRoute() {
+    if (this.state.user !== null) {
+      return {name: 'phoneLoginName'};
+    } else {
+      return {name: 'contacts'};
+    }
+
+    // return {name: 'phoneLoginName'};
+    // return {name: 'contacts'};
+  },
+
   render() {
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{name: 'main'}}
+        initialRoute={this.loadInitialRoute()}
         renderScene={this.renderScene}
         configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
       />
