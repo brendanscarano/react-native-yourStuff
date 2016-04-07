@@ -9,6 +9,10 @@ import React, {
 
 const Toolbar = React.createClass({
 
+  onBackScreen() {
+    this.props.navigator.pop();
+  },
+
   onNextScreenPush() {
     this.props.navigator.push({
       name: this.props.nextScreenTitle
@@ -19,12 +23,19 @@ const Toolbar = React.createClass({
     return (
       <View>
         <View style={styles.toolbar}>
-          <Text style={styles.toolbarButton}>
-            {this.props.leftButton ? this.props.leftButton : ''}
-          </Text>
+
+          <TouchableHighlight
+            style={styles.toolbarButton}
+            underlayColor={'#81c04d'}
+            activeOpacity={.6}
+            onPress={this.onBackScreen}>
+            <Text>{this.props.leftButtonTitle ? this.props.leftButtonTitle : ''}</Text>
+          </TouchableHighlight>
+
           <Text style={styles.toolbarTitle}>
             {this.props.title}
           </Text>
+
           <TouchableHighlight
             style={styles.toolbarButton}
             underlayColor={'#81c04d'}
@@ -32,6 +43,7 @@ const Toolbar = React.createClass({
             onPress={this.onNextScreenPush}>
             <Text>{this.props.rightButtonTitle ? this.props.rightButtonTitle : ''}</Text>
           </TouchableHighlight>
+
         </View>
       </View>
     )

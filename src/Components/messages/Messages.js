@@ -80,7 +80,12 @@ const Messages = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Toolbar />
+        <Toolbar
+          title='Messages'
+          leftButtonTitle='Back'
+          route={this.props.route}
+          navigator={this.props.navigator}
+        />
 
         <View style={styles.buttonWrapper}>
           <TouchableHighlight
