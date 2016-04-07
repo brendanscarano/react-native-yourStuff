@@ -13,6 +13,7 @@ import React, {
 } from 'react-native';
 
 import ContactList from './src/Components/contacts/ContactList';
+import NoContactErrorScreen from './src/Components/contacts/NoContactErrorScreen';
 import Messages from './src/Components/messages/Messages';
 import StartDate from './src/Components/dates/StartDate';
 import EndDate from './src/Components/dates/EndDate';
@@ -22,6 +23,7 @@ import VerificationCode from './src/Components/authentication/verificationCode';
 
 const ROUTES = {
   contacts: ContactList,
+  noContactsError: NoContactErrorScreen,
   messages: Messages,
   startDate: StartDate,
   endDate: EndDate,

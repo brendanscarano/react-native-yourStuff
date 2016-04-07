@@ -87,26 +87,28 @@ const Messages = React.createClass({
           navigator={this.props.navigator}
         />
 
-        <View style={styles.buttonWrapper}>
-          <TouchableHighlight
-            onPress={() => this.getInbox()}
-            underlayColor='red'
-            style={styles.contact}>
-            <Text>Inbox</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            onPress={() => this.getRequests()}
-            underlayColor='red'
-            style={styles.contact}>
-            <Text>Requests</Text>
-          </TouchableHighlight>
-        </View>
-
         <View style={styles.messageWrapper}>
-          {this.renderMessageSection()}
+          <View style={styles.buttonWrapper}>
+            <TouchableHighlight
+              onPress={() => this.getInbox()}
+              underlayColor='red'
+              style={styles.contact}>
+              <Text>Inbox</Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              onPress={() => this.getRequests()}
+              underlayColor='red'
+              style={styles.contact}>
+              <Text>Requests</Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={styles.messageWrapper}>
+            {this.renderMessageSection()}
+          </View>
         </View>
-      </View>
+        </View>
     )
   }
 });
@@ -116,8 +118,10 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 2,
     borderColor: 'yellow',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF'
+  },
+  messageWrapper: {
+    alignItems: 'center',
   },
   buttonWrapper: {
     flex: 1,

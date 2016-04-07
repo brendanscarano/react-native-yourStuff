@@ -33,10 +33,14 @@ const ContactListItem = React.createClass({
         });
 
       } else {
-        console.log('No user with this phone number!');
+
+        this.props.navigator.push({
+          name: 'noContactsError'
+        });
+
       }
 
-    })
+    });
 
   },
 
