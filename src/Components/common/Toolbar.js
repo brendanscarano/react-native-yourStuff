@@ -9,13 +9,29 @@ import React, {
 
 const Toolbar = React.createClass({
 
+  onNextScreenPush() {
+    this.props.navigator.push({
+      name: this.props.nextScreenTitle
+    });
+  },
+
   render() {
     return (
       <View>
         <View style={styles.toolbar}>
-          <Text style={styles.toolbarButton}>Add</Text>
-          <Text style={styles.toolbarTitle}>This is the title</Text>
-          <Text style={styles.toolbarButton}>Like</Text>
+          <Text style={styles.toolbarButton}>
+            {this.props.leftButton ? this.props.leftButton : ''}
+          </Text>
+          <Text style={styles.toolbarTitle}>
+            {this.props.title}
+          </Text>
+          <TouchableHighlight
+            style={styles.toolbarButton}
+            underlayColor={'#81c04d'}
+            activeOpacity={.6}
+            onPress={this.onNextScreenPush}>
+            <Text>{this.props.rightButtonTitle ? this.props.rightButtonTitle : ''}</Text>
+          </TouchableHighlight>
         </View>
       </View>
     )
@@ -31,9 +47,7 @@ const styles = StyleSheet.create({
     flexDirection:'row'
   },
   toolbarButton:{
-    width: 50,
-    color:'#fff',
-    textAlign:'center'
+    width: 100,
   },
   toolbarTitle:{
     color:'#fff',

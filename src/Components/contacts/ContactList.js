@@ -10,6 +10,7 @@ import React, {
 
 import ContactsAPI from 'react-native-contacts';
 import ContactListItem from './ContactListItem';
+import Toolbar from '../common/Toolbar';
 
 const Contacts = React.createClass({
 
@@ -20,6 +21,7 @@ const Contacts = React.createClass({
   },
 
   componentDidMount() {
+    console.log(this.props)
     ContactsAPI.getAll((err, contacts) => {
       this.setState({
         contacts: contacts
@@ -42,23 +44,16 @@ const Contacts = React.createClass({
     })
   },
 
-  toMessages() {
-    this.props.navigator.push({
-      name: 'messages'
-    })
-  },
-
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>Contacts</Text>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.toMessages}>
-            <Text>Messages</Text>
-          </TouchableHighlight>
-        </View>
+        <Toolbar
+          title='Contacts'
+          rightButtonTitle='Messages'
+          nextScreenTitle='messages'
+          route={this.props.route}
+          navigator={this.props.navigator}
+        />
         <ScrollView style={styles.contactWrapper}>
           {this.state.contacts ? this.displayContacts() : null}
         </ScrollView>
@@ -73,13 +68,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'yellow',
     backgroundColor: '#F5FCFF'
-  },
-  header: {
-    flex: 1,
-    paddingTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#93DB70'
   },
   contactWrapper: {
     flex: 9,
