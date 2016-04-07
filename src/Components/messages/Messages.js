@@ -4,11 +4,13 @@ import React, {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
-import Inbox from './Inbox';
+import InboxWrapper from './InboxWrapper';
 import RequestWrapper from './RequestWrapper';
+import Toolbar from '../common/Toolbar';
 
 const Messages = React.createClass({
 
@@ -16,22 +18,39 @@ const Messages = React.createClass({
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
       selectedTab: 'requests',
-      requests: null
+      requests: null,
+      inbox: null
     }
   },
 
   componentDidMount() {
-    // get a users requests
-    // where yourNumber === AsyncStorage user phoneNumber
+
     // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
     //   console.log(snapshot.val());
     // });
-    this.state.firebase.once('value', (snap) => {
-      this.setState({requests: snap.val()});
-    })
+    AsyncStorage.getItem('user').then((value) => {
 
+      const usersPhoneNumber = JSON.parse(value).phoneNumber;
 
-    // get a users inbox
+      // get a users requests
+      this.state.firebase
+        .orderByChild('yourNumber')
+        .equalTo(usersPhoneNumber)
+        .once('value', (snap) => {
+          console.log(snap.val())
+          this.setState({requests: snap.val()});
+      })
+
+      // get a users inbox
+      this.state.firebase
+        .orderByChild('requestedUserNumber')
+        .equalTo(usersPhoneNumber)
+        .once('value', (snap) => {
+          console.log(snap.val())
+          this.setState({inbox: snap.val()});
+      })
+    });
+
   },
 
   getInbox() {
@@ -49,11 +68,11 @@ const Messages = React.createClass({
   renderMessageSection() {
     if(this.state.selectedTab === 'inbox') {
       return (
-        <Inbox />
+        <InboxWrapper inbox={this.state.inbox} />
       )
     } else {
       return (
-        <RequestWrapper requests={this.state.requests}/>
+        <RequestWrapper requests={this.state.requests} />
       )
     }
   },
@@ -61,7 +80,7 @@ const Messages = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Message Section</Text>
+        <Toolbar />
 
         <View style={styles.buttonWrapper}>
           <TouchableHighlight

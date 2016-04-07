@@ -7,20 +7,24 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
-const Inbox = React.createClass({
+const InboxItem = React.createClass({
+
+  componentDidMount() {
+    console.log(this.props);
+  },
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Inbox Section</Text>
+      <View style={styles.inboxItem}>
+        <Text>{this.props.request.yourName} requested your Camera Roll</Text>
       </View>
     )
   }
 });
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  inboxItem: {
+    height: 50,
     borderWidth: 2,
     borderColor: 'orange',
     alignItems: 'center',
@@ -28,4 +32,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Inbox;
+module.exports = InboxItem;

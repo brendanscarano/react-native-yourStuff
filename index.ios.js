@@ -34,18 +34,11 @@ const youPics = React.createClass({
 
   getInitialState() {
     return {
-      images: null,
-      currentUser: null
+      images: null
     }
   },
 
   componentDidMount() {
-
-    AsyncStorage.getItem('user').then((value) => {
-      this.setState({
-        currentUser: value
-      })
-    });
 
     CameraRoll.getPhotos({first: 25})
       .then((data) => {
@@ -69,14 +62,20 @@ const youPics = React.createClass({
   },
 
   loadInitialRoute() {
-    // if (this.state.user !== null) {
-    //   return {name: 'phoneLoginName'};
-    // } else {
-    //   return {name: 'startDate'};
-    // }
+
+    const user = AsyncStorage.getItem('user')
+      .then((value) => {
+        return value;
+      });
+
+    if (user) {
+      return {name: 'contacts'};
+    } else {
+      return {name: 'phoneLoginName'};
+    }
 
     // return {name: 'phoneLoginName'};
-    return {name: 'messages'};
+    // return {name: 'messages'};
   },
 
   render() {
@@ -85,7 +84,7 @@ const youPics = React.createClass({
         style={styles.container}
         initialRoute={this.loadInitialRoute()}
         renderScene={this.renderScene}
-        configureScene={() => { return Navigator.SceneConfigs.FloatFromRight;}}
+        configureScene={() => {return Navigator.SceneConfigs.FloatFromRight;}}
       />
     );
   }

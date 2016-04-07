@@ -39,6 +39,8 @@ const EndDate = React.createClass({
 
       const user = JSON.parse(value);
 
+      const newDate = new Date();
+
       this.state.firebase.push({
         yourName: user.userName,
         yourNumber: user.phoneNumber,
@@ -46,8 +48,13 @@ const EndDate = React.createClass({
         requestedUserNumber: this.props.contactNumber,
         startDate: moment(this.props.startDate).format('MMMM Do YYYY'),
         endDate: moment(this.state.endDate).format('MMMM Do YYYY'),
-        created_at: new Date();
-      })
+        created_at: moment(newDate).format('MMMM Do YYYY hh:mm:ss a')
+      });
+
+      this.props.navigator.push({
+        name: 'messages'
+      });
+
     });
 
   },
