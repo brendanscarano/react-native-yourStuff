@@ -17,6 +17,7 @@ const InboxWrapper = React.createClass({
     return Object.keys(inboxRequestsObj).map((req, index) => {
       return (
         <InboxItem
+          id={req}
           request={inboxRequestsObj[req]}
           key={index}
         />

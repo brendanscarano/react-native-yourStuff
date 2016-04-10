@@ -46,7 +46,6 @@ const Messages = React.createClass({
         .orderByChild('requestedUserNumber')
         .equalTo(usersPhoneNumber)
         .once('value', (snap) => {
-          // console.log(snap.val())
           this.setState({inbox: snap.val()});
       })
     });

@@ -33,11 +33,12 @@ const InboxItem = React.createClass({
     // new Firebase('https://gimmie.firebaseio.com/requests/-KEdD0ahhPR-EAXec0sE').once('value', function(snap) {
     //    console.log(snap.val());
     // });
+    const ref = new Firebase(`https://gimmie.firebaseio.com/requests/${this.props.id}`);
 
     if(value) {
-      new Firebase('https://gimmie.firebaseio.com/requests/-KEdD0ahhPR-EAXec0sE').child('accepted').set(true);
+      ref.child('accepted').set(true);
     } else {
-      new Firebase('https://gimmie.firebaseio.com/requests/-KEdD0ahhPR-EAXec0sE').child('accepted').set(false);
+      ref.child('accepted').set(false);
     }
   },
 
