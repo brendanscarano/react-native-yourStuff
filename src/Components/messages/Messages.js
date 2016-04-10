@@ -17,7 +17,7 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'requests',
+      selectedTab: 'inbox',
       requests: null,
       inbox: null
     }
@@ -37,7 +37,7 @@ const Messages = React.createClass({
         .orderByChild('yourNumber')
         .equalTo(usersPhoneNumber)
         .once('value', (snap) => {
-          console.log(snap.val())
+          // console.log(snap.val())
           this.setState({requests: snap.val()});
       })
 
@@ -46,7 +46,7 @@ const Messages = React.createClass({
         .orderByChild('requestedUserNumber')
         .equalTo(usersPhoneNumber)
         .once('value', (snap) => {
-          console.log(snap.val())
+          // console.log(snap.val())
           this.setState({inbox: snap.val()});
       })
     });

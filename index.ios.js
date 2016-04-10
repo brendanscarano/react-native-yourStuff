@@ -70,14 +70,14 @@ const youPics = React.createClass({
         return value;
       });
 
-    if (user) {
-      return {name: 'contacts'};
-    } else {
-      return {name: 'phoneLoginName'};
-    }
+    // if (user) {
+    //   return {name: 'contacts'};
+    // } else {
+    //   return {name: 'phoneLoginName'};
+    // }
 
     // return {name: 'phoneLoginName'};
-    // return {name: 'messages'};
+    return {name: 'messages'};
   },
 
   render() {
