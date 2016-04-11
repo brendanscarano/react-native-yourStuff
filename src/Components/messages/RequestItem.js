@@ -18,6 +18,7 @@ const RequestItem = React.createClass({
       <View style={styles.requestItem}>
         <Text>{this.props.request.yourName}</Text>
         <Text>Requested {this.props.request.requestedUserName}'s Camera Roll</Text>
+        <Text>{this.props.request.accepted ? 'Accepted' : 'Not Accepted'}</Text>
       </View>
     )
   }

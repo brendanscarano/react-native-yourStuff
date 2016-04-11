@@ -17,7 +17,7 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'inbox',
+      selectedTab: 'requests',
       requests: null,
       inbox: null
     }
@@ -91,15 +91,15 @@ const Messages = React.createClass({
             <TouchableHighlight
               onPress={() => this.getInbox()}
               underlayColor='red'
-              style={styles.contact}>
-              <Text>Inbox</Text>
+              style={[styles.button, this.state.selectedTab === 'inbox' ? styles.activeButton : null]}>
+              <Text style={styles.buttonText}>Inbox</Text>
             </TouchableHighlight>
 
             <TouchableHighlight
               onPress={() => this.getRequests()}
               underlayColor='red'
-              style={styles.contact}>
-              <Text>Requests</Text>
+              style={[styles.button, this.state.selectedTab === 'requests' ? styles.activeButton : null]}>
+              <Text style={styles.buttonText}>Requests</Text>
             </TouchableHighlight>
           </View>
 
@@ -125,10 +125,23 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-around',
     borderWidth: 2,
-    borderColor: 'red',
+    borderColor: 'purple',
+    alignSelf: 'stretch'
+  },
+  button: {
+    flex: 1,
+    borderWidth: 2,
+    borderColor: 'yellow',
     alignSelf: 'stretch',
-    alignItems: 'center'
+    justifyContent: 'center',
+  },
+  activeButton: {
+    backgroundColor: 'red'
+  },
+  buttonText: {
+    textAlign: 'center'
   },
   messageWrapper: {
     flex: 5,

@@ -45,8 +45,11 @@ const InboxItem = React.createClass({
   render() {
     return (
       <View style={styles.inboxItem}>
-        <Text>{this.props.request.yourName} requested your Camera Roll</Text>
-        <View>
+        <View style={styles.textWrapper}>
+          <Text>{this.props.request.yourName} requested your Camera Roll from:</Text>
+          <Text>{this.props.request.startDate} - {this.props.request.endDate}</Text>
+        </View>
+        <View style={styles.toggleWrapper}>
           <Emoji name='-1'/>
           <Switch
             onValueChange={
@@ -65,11 +68,21 @@ const InboxItem = React.createClass({
 
 const styles = StyleSheet.create({
   inboxItem: {
-    height: 50,
+    flexDirection: 'row',
+    height: 70,
     borderWidth: 2,
-    borderColor: 'orange',
-    alignItems: 'center',
+    borderColor: 'red',
+    alignSelf: 'stretch',
     backgroundColor: '#F5FCFF'
+  },
+  textWrapper: {
+    position: 'absolute',
+    left: 0
+  },
+  toggleWrapper: {
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 0
   }
 });
 

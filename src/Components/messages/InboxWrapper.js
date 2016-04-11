@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'orange',
     alignItems: 'center',
+    alignSelf: 'stretch',
     backgroundColor: '#F5FCFF'
   }
 });

@@ -48,6 +48,7 @@ const EndDate = React.createClass({
         requestedUserNumber: this.props.contactNumber,
         startDate: moment(this.props.startDate).format('MMMM Do YYYY'),
         endDate: moment(this.state.endDate).format('MMMM Do YYYY'),
+        accepted: false,
         created_at: moment(newDate).format('MMMM Do YYYY hh:mm:ss a')
       });
 
