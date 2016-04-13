@@ -40,10 +40,27 @@ const PhoneLoginNumber = React.createClass({
 
     if (this.state.phoneNumber !== '') {
 
-      // const ranNum = this.randomNumber(4);
-      const ranNum = 1234;
+      // remove any +*#
+      // add country code in front of it
+      console.log(this.state.phoneNumber);
+
+      // to be used for Twilio
+      const userNum = `1${this.state.phoneNumber}`;
+      // const userNum = '+15163187361';
+
+      const ranNum = this.randomNumber(4);
+      // const ranNum = 1234;
 
       console.log(ranNum);
+
+
+      fetch(`http://localhost:3000/message/${userNum}/${this.props.name}/${ranNum}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .then((resJSON) => {
+          console.log(resJSON);
+        });
 
       this.state.firebase.push({
         name: this.props.name,
@@ -108,29 +125,3 @@ const styles = StyleSheet.create({
 })
 
 module.exports = PhoneLoginNumber;
-
-
-// FIREBASE AUTHENTICATION WITH EMAIL/PASSWORD
-
-// this.state.firebase.createUser({
-//   email: this.state.email.toLowerCase(),
-//   password: this.state.password
-//   // email: `testing${ranNum}@gmail.com`,
-//   // password: 'testing'
-// }, (error, userData) => {
-
-//   if (error) {
-//     console.log(error);
-//     this.setState({errorMessage: error.message});
-//   } else {
-//     console.log(userData);
-//     usersRef.push({
-//       userId: userData.uid,
-//       phoneNumber: this.state.phoneNumber
-//     });
-//     this.props.navigator.push({
-//       name: 'main'
-//     })
-//     this.props.navigator.immediatelyResetRouteStack([{name: 'main'}]);
-//   }
-// })
