@@ -7,7 +7,6 @@ import React, {
   StyleSheet,
   Text,
   View,
-  CameraRoll,
   Navigator,
   AsyncStorage
 } from 'react-native';
@@ -20,6 +19,7 @@ import EndDate from './src/Components/dates/EndDate';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
 import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
 import VerificationCode from './src/Components/authentication/verificationCode';
+import Images from './src/ImageWrapper';
 
 const ROUTES = {
   contacts: ContactList,
@@ -29,26 +29,11 @@ const ROUTES = {
   endDate: EndDate,
   phoneLoginName: PhoneLoginName,
   phoneLoginNumber: PhoneLoginNumber,
-  verificationCode: VerificationCode
+  verificationCode: VerificationCode,
+  images: Images
 }
 
 const youPics = React.createClass({
-
-  getInitialState() {
-    return {
-      images: null
-    }
-  },
-
-  componentDidMount() {
-
-    CameraRoll.getPhotos({first: 25})
-      .then((data) => {
-        this.setState({
-          images: data.edges
-        });
-      })
-  },
 
   renderScene(route, navigator) {
     const Component = ROUTES[route.name];
@@ -77,7 +62,7 @@ const youPics = React.createClass({
     // }
 
     // return {name: 'phoneLoginName'};
-    return {name: 'messages'};
+    return {name: 'images'};
   },
 
   render() {
