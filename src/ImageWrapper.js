@@ -1,5 +1,3 @@
-// https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content
-
 'use strict';
 
 import React, {
@@ -26,10 +24,20 @@ const ImageWrapper = React.createClass({
 
   componentDidMount() {
 
+    // const userNum = '+15163187361';
+
+    // fetch(`http://localhost:3000/message/${userNum}`)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .then((resJSON) => {
+    //     console.log(resJSON);
+    //   });
+
     CameraRoll.getPhotos({first: 25})
       .then((data) => {
 
-        const images = [];
+        const testimages = [];
 
         for (let i = 0; i < data.edges.length; i++) {
 
@@ -41,23 +49,26 @@ const ImageWrapper = React.createClass({
             img.base64 = imageBase64;
           });
 
-          images.push(img);
+          testimages.push(img);
 
         }
 
+        console.log(testimages);
+
         this.setState({
-          images: images
+          images: testimages
         });
+
       })
   },
 
   displayPhotos() {
 
     console.log(this.state.images);
+    console.log(this.state.images[0]);
+    console.log(this.state.images[0]['base64']);
 
     return this.state.images.map((img, index) => {
-
-      console.log(img);
 
       const photoTime = moment.unix(img.node.timestamp).format('MMM DD YYYY');
       const startTime = moment(this.props.startDate).format('MMM DD YYYY');

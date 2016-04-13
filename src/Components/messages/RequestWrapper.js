@@ -17,6 +17,8 @@ const RequestWrapper = React.createClass({
     return Object.keys(requestsObj).map((req, index) => {
       return (
         <RequestItem
+          route={this.props.route}
+          navigator={this.props.navigator}
           request={requestsObj[req]}
           key={index}
         />

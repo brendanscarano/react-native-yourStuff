@@ -71,7 +71,11 @@ const Messages = React.createClass({
       )
     } else {
       return (
-        <RequestWrapper requests={this.state.requests} />
+        <RequestWrapper
+          route={this.props.route}
+          navigator={this.props.navigator}
+          requests={this.state.requests}
+        />
       )
     }
   },
