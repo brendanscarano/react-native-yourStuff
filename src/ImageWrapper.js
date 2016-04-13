@@ -24,16 +24,6 @@ const ImageWrapper = React.createClass({
 
   componentDidMount() {
 
-    // const userNum = '+15163187361';
-
-    // fetch(`http://localhost:3000/message/${userNum}`)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .then((resJSON) => {
-    //     console.log(resJSON);
-    //   });
-
     CameraRoll.getPhotos({first: 25})
       .then((data) => {
 
