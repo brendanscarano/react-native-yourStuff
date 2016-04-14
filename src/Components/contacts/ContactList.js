@@ -21,7 +21,6 @@ const Contacts = React.createClass({
   },
 
   componentDidMount() {
-    console.log(this.props)
     ContactsAPI.getAll((err, contacts) => {
       this.setState({
         contacts: contacts

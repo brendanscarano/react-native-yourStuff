@@ -9,8 +9,8 @@ import React, {
 } from 'react-native';
 
 import moment from 'moment';
-
 import Button from '../authentication/Button';
+import Toolbar from '../common/Toolbar';
 
 const StartDate = React.createClass({
 
@@ -41,27 +41,33 @@ const StartDate = React.createClass({
     });
   },
 
+  setMaxDate() {
+    var d = new Date();
+    console.log(d.setDate(d.getDate() - 1))
+    return d.setDate(d.getDate() - 1);
+  },
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.onBack}>
-            <Text>Contacts</Text>
-          </TouchableHighlight>
-          <Text style={styles.headerTitle}>
-            Gimme
-          </Text>
-        </View>
-        <Text>Hey {this.props.contactName}! I would like your Camera Roll pictures and videos from...</Text>
-        <Text>Start Date: {moment(this.state.startDate).format('MMMM Do YYYY')}</Text>
-        <DatePickerIOS
-          date={this.state.startDate}
-          mode="date"
-          onDateChange={this.startDateChange}
+        <Toolbar
+          title='Start Date'
+          leftButtonTitle='Back'
+          route={this.props.route}
+          navigator={this.props.navigator}
         />
-        <Button text={'Select End Date'} onPress={this.selectEndDate} />
+        <View style={styles.dateContainer}>
+          <Text>Hey {this.props.contactName}! I would like your Camera Roll pictures and videos from...</Text>
+          <Text>Start Date: {moment(this.state.startDate).format('dddd MMMM Do YYYY')}</Text>
+          <DatePickerIOS
+            date={this.state.startDate}
+            mode="date"
+            maximumData={this.setMaxDate()}
+            onDateChange={this.startDateChange}
+          />
+          <Button text={'Select End Date'} onPress={this.selectEndDate} />
+        </View>
+
       </View>
     );
   }
@@ -69,25 +75,16 @@ const StartDate = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    flex: 1,
     borderWidth: 2,
-    borderColor: 'green',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: 'red',
     backgroundColor: '#F5FCFF',
   },
-  header: {
-    backgroundColor:'#81c04d',
-    paddingTop: 30,
-    paddingBottom: 10,
-    flexDirection: 'row',
-  },
-  headerTitle: {
+  dateContainer: {
     flex: 1,
-    textAlign: 'center',
-    fontWeight: 'bold'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
-
 });
 
 module.exports = StartDate;

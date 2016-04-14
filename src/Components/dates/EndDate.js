@@ -13,6 +13,7 @@ import moment from 'moment';
 import Firebase from 'firebase';
 
 import Button from '../authentication/Button';
+import Toolbar from '../common/Toolbar';
 
 const EndDate = React.createClass({
 
@@ -63,19 +64,15 @@ const EndDate = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={this.onBack}>
-            <Text>Contacts</Text>
-          </TouchableHighlight>
-          <Text style={styles.headerTitle}>
-            Gimme
-          </Text>
-        </View>
+        <Toolbar
+          title='End Date'
+          leftButtonTitle='Back'
+          route={this.props.route}
+          navigator={this.props.navigator}
+        />
         <Text>Hey {this.props.contactName}! I would like your Camera Roll pictures and videos from...</Text>
-        <Text>Start Date: {moment(this.props.startDate).format('MMMM Do YYYY')}</Text>
-        <Text>End Date: {moment(this.state.endDate).format('MMMM Do YYYY')}</Text>
+        <Text>Start Date: {moment(this.props.startDate).format('dddd MMMM Do YYYY')}</Text>
+        <Text>End Date: {moment(this.state.endDate).format('dddd MMMM Do YYYY')}</Text>
         <DatePickerIOS
           date={this.state.endDate}
           mode="date"
@@ -89,11 +86,9 @@ const EndDate = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
-    marginTop: 20,
+    flex: 1,
     borderWidth: 2,
-    borderColor: 'orange',
-    justifyContent: 'center',
+    borderColor: 'red',
     backgroundColor: '#F5FCFF',
   }
 });
