@@ -5,11 +5,11 @@ import React, {
   Text,
   StyleSheet,
   Switch,
-  CameraRoll,
-  NativeModules
+  CameraRoll
 } from 'react-native';
 
 import Emoji from 'react-native-emoji';
+import NativeModules from 'NativeModules';
 
 const InboxItem = React.createClass({
 
@@ -30,47 +30,37 @@ const InboxItem = React.createClass({
 
   changeValue(value) {
     console.log(value);
+    console.log(NativeModules);
     this.setState({trueSwitchIsOn: value})
 
     // new Firebase('https://gimmie.firebaseio.com/requests/-KEdD0ahhPR-EAXec0sE').once('value', function(snap) {
     //    console.log(snap.val());
     // });
+
     const ref = new Firebase(`https://gimmie.firebaseio.com/requests/${this.props.id}`);
 
     if(value) {
 
       ref.child('accepted').set(true);
 
-      CameraRoll.getPhotos({first: 25})
-        .then((data) => {
+      CameraRoll.getPhotos({first: 25}).then((data) => {
+        console.log(data);
+        for (let i = 0; i < data.edges.length; i++) {
+          NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
 
-          console.log(data);
+            const strLength = imageBase64.length;
+            const firstHalf = imageBase64.slice(0, (strLength / 2));
+            const secondHalf = imageBase64.slice((strLength / 2), strLength);
 
-          ref.child('images').set(data.edges);
-          // const testimages = [];
+            const img = {
+              part1: firstHalf,
+              part2: secondHalf
+            };
 
-          // for (let i = 0; i < data.edges.length; i++) {
-
-          //   const img = {
-          //     node: data.edges[i].node
-          //   }
-
-          //   NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
-          //     img.base64 = imageBase64;
-          //   });
-
-          //   testimages.push(img);
-
-          // }
-
-          // console.log(testimages);
-
-          // this.setState({
-          //   images: testimages
-          // });
-
-        })
-
+            ref.child('images').push(img);
+          })
+        }
+      })
     } else {
 
       ref.child('accepted').set(false);
