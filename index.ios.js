@@ -19,7 +19,7 @@ import EndDate from './src/Components/dates/EndDate';
 import PhoneLoginName from './src/Components/authentication/phoneLoginName';
 import PhoneLoginNumber from './src/Components/authentication/phoneLoginNumber';
 import VerificationCode from './src/Components/authentication/verificationCode';
-import Images from './src/ImageWrapper';
+import Images from './src/Components/images/ImageWrapper';
 
 const ROUTES = {
   contacts: ContactList,
@@ -62,7 +62,7 @@ const youPics = React.createClass({
     // }
 
     // return {name: 'phoneLoginName'};
-    return {name: 'startDate'};
+    return {name: 'messages'};
   },
 
   render() {

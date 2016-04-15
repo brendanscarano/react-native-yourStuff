@@ -29,7 +29,6 @@ const RequestWrapper = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text>Requests Section</Text>
         {this.props.requests ? this.renderRequests() : null}
       </View>
     )

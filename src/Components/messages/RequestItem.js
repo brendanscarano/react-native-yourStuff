@@ -14,23 +14,26 @@ const RequestItem = React.createClass({
   },
 
   seeImages() {
-    console.log('hitting this!')
     this.props.navigator.push({
-      name: 'images'
+      name: 'images',
+      passProps: {
+        images: this.props.request.photos
+      }
     })
   },
 
   render() {
     return (
       <View style={styles.requestItem}>
-        <Text>{this.props.request.yourName}</Text>
-        <Text>Requested {this.props.request.requestedUserName}'s Camera Roll</Text>
+        <Text>{this.props.request.requestedUserName}'s Camera Roll from:</Text>
+        <Text>{this.props.request.startDate} - {this.props.request.endDate}</Text>
         <Text>{this.props.request.accepted ? 'Accepted' : 'Not Accepted'}</Text>
 
         <TouchableHighlight
+          style={styles.button}
           onPress={this.seeImages}
           underlayColor='red'>
-          <Text>Test Button</Text>
+          <Text>View</Text>
         </TouchableHighlight>
       </View>
     )
@@ -39,11 +42,22 @@ const RequestItem = React.createClass({
 
 const styles = StyleSheet.create({
   requestItem: {
-    height: 50,
+    height: 75,
     borderWidth: 2,
-    borderColor: 'orange',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    borderColor: 'red',
+    alignSelf: 'stretch',
+    backgroundColor: '#F5FCFF',
+    position: 'relative'
+  },
+  button: {
+    position: 'absolute',
+    width: 100,
+    height: 40,
+    top: 14,
+    right: 14,
+    borderWidth: 1,
+    borderColor: 'blue',
+    borderRadius: 10
   }
 });
 
