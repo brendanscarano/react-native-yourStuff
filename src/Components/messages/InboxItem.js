@@ -4,7 +4,9 @@ import React, {
   View,
   Text,
   StyleSheet,
-  Switch
+  Switch,
+  CameraRoll,
+  NativeModules
 } from 'react-native';
 
 import Emoji from 'react-native-emoji';
@@ -36,9 +38,43 @@ const InboxItem = React.createClass({
     const ref = new Firebase(`https://gimmie.firebaseio.com/requests/${this.props.id}`);
 
     if(value) {
+
       ref.child('accepted').set(true);
+
+      CameraRoll.getPhotos({first: 25})
+        .then((data) => {
+
+          console.log(data);
+
+          ref.child('images').set(data.edges);
+          // const testimages = [];
+
+          // for (let i = 0; i < data.edges.length; i++) {
+
+          //   const img = {
+          //     node: data.edges[i].node
+          //   }
+
+          //   NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
+          //     img.base64 = imageBase64;
+          //   });
+
+          //   testimages.push(img);
+
+          // }
+
+          // console.log(testimages);
+
+          // this.setState({
+          //   images: testimages
+          // });
+
+        })
+
     } else {
+
       ref.child('accepted').set(false);
+
     }
   },
 

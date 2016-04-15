@@ -17,7 +17,7 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'requests',
+      selectedTab: 'inbox',
       requests: null,
       inbox: null
     }
