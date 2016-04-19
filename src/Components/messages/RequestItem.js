@@ -10,14 +10,14 @@ import React, {
 const RequestItem = React.createClass({
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
   },
 
   seeImages() {
     this.props.navigator.push({
       name: 'images',
       passProps: {
-        images: this.props.request.photos
+        images: this.props.request.images
       }
     })
   },

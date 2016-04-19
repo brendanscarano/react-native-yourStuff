@@ -17,13 +17,31 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'inbox',
+      selectedTab: 'requests',
       requests: null,
       inbox: null
     }
   },
 
   componentDidMount() {
+
+    // fetch('http://localhost:3000/saveImg')
+    //   .then((res) => {
+    //     console.log(res);
+    //     console.log(JSON.parse(res._bodyInit))
+    //   })
+    //   .then((resJSON) => {
+    //     console.log(resJSON);
+    //   });
+
+    fetch('http://localhost:3000/getImages')
+      .then((res) => {
+        console.log(res);
+        console.log(JSON.parse(res._bodyInit))
+      })
+      .then((resJSON) => {
+        console.log(resJSON);
+      });
 
     // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
     //   console.log(snapshot.val());
@@ -37,7 +55,7 @@ const Messages = React.createClass({
         .orderByChild('yourNumber')
         .equalTo(usersPhoneNumber)
         .once('value', (snap) => {
-          // console.log(snap.val())
+          console.log(snap.val())
           this.setState({requests: snap.val()});
       })
 
