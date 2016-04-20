@@ -9,15 +9,27 @@ import React, {
 
 const RequestItem = React.createClass({
 
+  getInitialState() {
+    return {
+      images: null
+    }
+  },
+
   componentDidMount() {
     // console.log(this.props);
+    fetch('http://localhost:3000/getImages')
+      .then((res) => {
+        const data = JSON.parse(res._bodyInit);
+        // console.log(data);
+        this.setState({images: data.Contents })
+      })
   },
 
   seeImages() {
     this.props.navigator.push({
       name: 'images',
       passProps: {
-        images: this.props.request.images
+        images: this.state.images
       }
     })
   },

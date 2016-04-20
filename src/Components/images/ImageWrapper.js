@@ -20,12 +20,15 @@ const ImageWrapper = React.createClass({
 
   displayPhotos() {
     return this.props.images.map((img, index) => {
+
+      const URL = `https://s3.amazonaws.com/gimme-photo-test/`;
       console.log(img);
+
       return (
         <View key={index}>
           <Image
             style={styles.image}
-            source={{uri: img, scale: 3}}
+            source={{uri: `${URL}${img.Key}`}}
           />
         </View>
       )
@@ -54,8 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 2,
     borderColor: 'yellow',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   imageGrid: {

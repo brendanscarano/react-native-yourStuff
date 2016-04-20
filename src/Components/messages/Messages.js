@@ -34,15 +34,6 @@ const Messages = React.createClass({
     //     console.log(resJSON);
     //   });
 
-    fetch('http://localhost:3000/getImages')
-      .then((res) => {
-        console.log(res);
-        console.log(JSON.parse(res._bodyInit))
-      })
-      .then((resJSON) => {
-        console.log(resJSON);
-      });
-
     // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
     //   console.log(snapshot.val());
     // });
@@ -55,7 +46,7 @@ const Messages = React.createClass({
         .orderByChild('yourNumber')
         .equalTo(usersPhoneNumber)
         .once('value', (snap) => {
-          console.log(snap.val())
+          // console.log(snap.val())
           this.setState({requests: snap.val()});
       })
 
