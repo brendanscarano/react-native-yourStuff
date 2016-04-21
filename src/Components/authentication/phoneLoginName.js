@@ -18,13 +18,6 @@ const PhoneLoginName = React.createClass({
   },
 
   inputName() {
-
-    // const accountSid = 'AC943ea98df53c2f3084170fd57b251604';
-    // const authToken = 'ab0ba128a02684790bc5d79b4d70f34e';
-
-    // const client = twilio(accountSid)(authToken);
-    // console.log(twilio);
-
     this.props.navigator.push({
       name: 'phoneLoginNumber',
       passProps: {
