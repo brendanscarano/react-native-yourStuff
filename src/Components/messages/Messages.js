@@ -17,22 +17,13 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'requests',
+      selectedTab: 'inbox',
       requests: null,
       inbox: null
     }
   },
 
   componentDidMount() {
-
-    // fetch('http://localhost:3000/saveImg')
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(JSON.parse(res._bodyInit))
-    //   })
-    //   .then((resJSON) => {
-    //     console.log(resJSON);
-    //   });
 
     // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
     //   console.log(snapshot.val());
