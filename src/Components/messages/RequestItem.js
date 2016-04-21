@@ -16,11 +16,11 @@ const RequestItem = React.createClass({
   },
 
   componentDidMount() {
-    // console.log(this.props);
+    // may want to move this to the image wrapper itself
+    // so there are no unnecessary API calls
     fetch('http://localhost:3000/getImages')
       .then((res) => {
         const data = JSON.parse(res._bodyInit);
-        // console.log(data);
         this.setState({images: data.Contents })
       })
   },
