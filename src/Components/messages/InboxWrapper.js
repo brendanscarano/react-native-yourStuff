@@ -4,12 +4,58 @@ import React, {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+
+
+  CameraRoll
 } from 'react-native';
 
 import InboxItem from './InboxItem';
 
+
+// DELETE
+import NativeModules from 'NativeModules';
+//
+
 const InboxWrapper = React.createClass({
+
+  componentDidMount() {
+
+    CameraRoll.getPhotos({first: 1}).then((data) => {
+      console.log(data.edges[0].node.image.uri);
+
+      for (let i = 0; i < data.edges.length; i++) {
+        NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
+
+          // const encodeData = encodeURIComponent(img);
+
+          // Using the full base64 image
+          const encodeBase64data = encodeURIComponent(imageBase64);
+          console.log(encodeBase64data);
+
+          const obj = {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              'img': encodeBase64data
+            })
+          }
+
+          fetch('http://localhost:3000/saveImg', obj)
+            .then((res) => {
+              console.log(JSON.parse(res._bodyInit));
+            })
+
+        })
+      }
+
+    })
+
+
+  },
 
   renderInboxRequests() {
     const inboxRequestsObj = this.props.inbox;
