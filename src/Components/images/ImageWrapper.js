@@ -5,30 +5,28 @@ import React, {
   Text,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
 import _ from 'lodash';
 import moment from 'moment';
 import Toolbar from '../common/Toolbar';
+import Img from './Img';
 
 const ImageWrapper = React.createClass({
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
   },
 
   displayPhotos() {
     return this.props.images.map((img, index) => {
-
-      const URL = `https://s3.amazonaws.com/gimme-photo-test/`;
       console.log(img);
-
       return (
         <View key={index}>
-          <Image
-            style={styles.image}
-            source={{uri: `${URL}${img.Key}`}}
+          <Img
+            image={img}
           />
         </View>
       )
