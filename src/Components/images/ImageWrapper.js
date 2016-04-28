@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   imageGrid: {
-    flexDirection: 'column',
+    flex: 1,
+    flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
