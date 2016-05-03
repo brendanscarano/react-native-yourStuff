@@ -17,7 +17,7 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'inbox',
+      selectedTab: 'requests',
       requests: null,
       inbox: null
     }
@@ -29,6 +29,8 @@ const Messages = React.createClass({
     //   console.log(snapshot.val());
     // });
     AsyncStorage.getItem('user').then((value) => {
+
+      console.log(value);
 
       const usersPhoneNumber = JSON.parse(value).phoneNumber;
 
@@ -111,7 +113,7 @@ const Messages = React.createClass({
             {this.renderMessageSection()}
           </View>
         </View>
-        </View>
+      </View>
     )
   }
 });

@@ -25,13 +25,11 @@ const InboxWrapper = React.createClass({
       console.log(data.edges[0].node.image.uri);
 
       for (let i = 0; i < data.edges.length; i++) {
+        console.log(data.edges[i].node.image.uri);
         NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
-
-          // const encodeData = encodeURIComponent(img);
 
           // Using the full base64 image
           const encodeBase64data = encodeURIComponent(imageBase64);
-          console.log(encodeBase64data);
 
           const obj = {
             method: 'POST',
@@ -44,9 +42,14 @@ const InboxWrapper = React.createClass({
             })
           }
 
-          fetch('http://localhost:3000/saveImg', obj)
+          // fetch('http://localhost:3000/saveImg', obj)
+          //   .then((res) => {
+          //     console.log(JSON.parse(res._bodyInit));
+          //   })
+
+          fetch('http://localhost:3000/firebaseSaveImg', obj)
             .then((res) => {
-              console.log(JSON.parse(res._bodyInit));
+              console.log(res);
             })
 
         })

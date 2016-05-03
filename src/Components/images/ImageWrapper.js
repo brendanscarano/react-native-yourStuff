@@ -16,21 +16,55 @@ import Img from './Img';
 
 const ImageWrapper = React.createClass({
 
+  getInitialState() {
+    return {
+      images: null
+    }
+  },
+
   componentDidMount() {
     // console.log(this.props);
+    fetch('http://localhost:3000/firebaseGetImages')
+      .then((res) => {
+        // console.log(res);
+        // console.log(res._bodyInit);
+        this.setState({images: res._bodyInit});
+
+        // console.log(this.state.images);
+        // _.forEach(this.state.images, (img) =>{
+        //   console.log(img);
+        // });
+      })
   },
 
   displayPhotos() {
-    return this.props.images.map((img, index) => {
-      console.log(img);
-      return (
-        <View key={index}>
-          <Img
-            image={img}
-          />
-        </View>
-      )
-    })
+
+    // console.log(this.state.images);
+    const parsedImages = JSON.parse(this.state.images);
+    const img = parsedImages['-KGsZeeqxU2bMupysY5I'];
+    // const img = this.state.images['-KGsZeeqxU2bMupysY5I'].image;
+
+    console.log(img);
+
+    return (
+            <Img
+              image={img}
+            />
+    );
+    /**
+      <Text>Hello World</Text>
+            */
+
+    // return this.state.images.map((img, index) => {
+    //   console.log(img);
+    //   return (
+    //     <View key={index}>
+    //       <Img
+    //         image={img}
+    //       />
+    //     </View>
+    //   )
+    // })
   },
 
   render() {
@@ -43,7 +77,7 @@ const ImageWrapper = React.createClass({
           navigator={this.props.navigator}
         />
         <ScrollView contentContainerStyle={styles.imageGrid}>
-          {this.props.images ? this.displayPhotos() : null}
+          {this.state.images ? this.displayPhotos() : null}
         </ScrollView>
       </View>
     );

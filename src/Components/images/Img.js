@@ -16,7 +16,7 @@ import Toolbar from '../common/Toolbar';
 const Img = React.createClass({
 
   componentDidMount() {
-    console.log(this.props);
+    console.log(this.props.image);
   },
 
   saveImage(uri) {
@@ -27,11 +27,13 @@ const Img = React.createClass({
   render() {
     const URL = `https://s3.amazonaws.com/gimme-photo-test/`;
 
+    const dataFront = 'data:image/png;base64,';
+
     return (
-      <TouchableHighlight >
+      <TouchableHighlight onPress={this.saveImage.bind(null, this.props.image)}>
           <Image
             style={styles.image}
-            source={{uri: `${URL}${this.props.image.Key}`}}
+            source={{uri: `${dataFront}${this.props.image.image}`}}
           />
       </TouchableHighlight>
     );

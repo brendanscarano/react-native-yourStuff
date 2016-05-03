@@ -15,22 +15,9 @@ const RequestItem = React.createClass({
     }
   },
 
-  componentDidMount() {
-    // may want to move this to the image wrapper itself
-    // so there are no unnecessary API calls
-    fetch('http://localhost:3000/getImages')
-      .then((res) => {
-        const data = JSON.parse(res._bodyInit);
-        this.setState({images: data.Contents })
-      })
-  },
-
   seeImages() {
     this.props.navigator.push({
-      name: 'images',
-      passProps: {
-        images: this.state.images
-      }
+      name: 'images'
     })
   },
 
