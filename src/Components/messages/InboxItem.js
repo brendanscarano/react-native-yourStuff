@@ -35,40 +35,45 @@ const InboxItem = React.createClass({
     //    console.log(snap.val());
     // });
 
-    // const ref = new Firebase(`https://gimmie.firebaseio.com/requests/${this.props.id}`);
+    const ref = new Firebase(`https://gimmie.firebaseio.com/requests/${this.props.id}`);
 
     if(value) {
 
       ref.child('accepted').set(true);
 
-    //   CameraRoll.getPhotos({first: 1}).then((data) => {
-    //     console.log(data);
+      CameraRoll.getPhotos({first: 3}).then((data) => {
+        console.log(data.edges[0].node.image.uri);
 
-    //     for (let i = 0; i < data.edges.length; i++) {
-    //       NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
-    //         console.log(imageBase64);
+        for (let i = 0; i < data.edges.length; i++) {
 
-    //         const obj = {
-    //           method: 'POST',
-    //           body: JSON.stringify({
-    //             image: data.edges[i].node.image.uri
-    //           })
-    //         }
+          console.log(data.edges[i].node.image.uri);
 
-    //         fetch('http://localhost:3000/saveImg', obj)
-    //         // fetch('http://localhost:3000/saveImg/brendan')
-    //           .then((res) => {
-    //             console.log(res);
-    //             console.log(JSON.parse(res._bodyInit))
-    //           })
-    //           .then((resJSON) => {
-    //             console.log(resJSON);
-    //           });
+          NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
 
-    //       })
-    //     }
+            // Using the full base64 image
+            const encodeBase64data = encodeURIComponent(imageBase64);
 
-    //   })
+            const obj = {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                'img': encodeBase64data
+              })
+            }
+
+            fetch('http://localhost:3000/firebaseSaveImg', obj)
+              .then((res) => {
+                console.log(res);
+              })
+
+          })
+
+        }
+
+      })
 
     } else {
 

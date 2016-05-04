@@ -4,61 +4,12 @@ import React, {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight,
-
-
-  CameraRoll
+  TouchableHighlight
 } from 'react-native';
 
 import InboxItem from './InboxItem';
 
-
-// DELETE
-import NativeModules from 'NativeModules';
-//
-
 const InboxWrapper = React.createClass({
-
-  componentDidMount() {
-
-    CameraRoll.getPhotos({first: 5}).then((data) => {
-      console.log(data.edges[0].node.image.uri);
-
-      for (let i = 0; i < data.edges.length; i++) {
-        console.log(data.edges[i].node.image.uri);
-        NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
-
-          // Using the full base64 image
-          const encodeBase64data = encodeURIComponent(imageBase64);
-
-          const obj = {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              'img': encodeBase64data
-            })
-          }
-
-          // fetch('http://localhost:3000/saveImg', obj)
-          //   .then((res) => {
-          //     console.log(JSON.parse(res._bodyInit));
-          //   })
-
-          fetch('http://localhost:3000/firebaseSaveImg', obj)
-            .then((res) => {
-              console.log(res);
-            })
-
-        })
-      }
-
-    })
-
-
-  },
 
   renderInboxRequests() {
     const inboxRequestsObj = this.props.inbox;
