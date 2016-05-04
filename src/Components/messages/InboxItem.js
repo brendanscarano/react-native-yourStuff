@@ -70,9 +70,7 @@ const InboxItem = React.createClass({
               })
 
           })
-
         }
-
       })
 
     } else {
