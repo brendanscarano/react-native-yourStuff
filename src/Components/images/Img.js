@@ -25,7 +25,6 @@ const Img = React.createClass({
   },
 
   render() {
-    const URL = `https://s3.amazonaws.com/gimme-photo-test/`;
 
     const dataFront = 'data:image/png;base64,';
 
@@ -33,11 +32,13 @@ const Img = React.createClass({
       <TouchableHighlight onPress={this.saveImage.bind(null, this.props.image)}>
           <Image
             style={styles.image}
-            source={{uri: `${dataFront}${this.props.image.image}`}}
+            source={{uri: `${dataFront}${this.props.image}`}}
           />
       </TouchableHighlight>
     );
+
   }
+
 });
 
 const styles = StyleSheet.create({

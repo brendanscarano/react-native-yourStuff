@@ -23,11 +23,8 @@ const ImageWrapper = React.createClass({
   },
 
   componentDidMount() {
-    // console.log(this.props);
     fetch('http://localhost:3000/firebaseGetImages')
       .then((res) => {
-        // console.log(res);
-        // console.log(res._bodyInit);
         this.setState({images: res._bodyInit});
 
         // console.log(this.state.images);
@@ -40,32 +37,68 @@ const ImageWrapper = React.createClass({
   displayPhotos() {
 
     // console.log(this.state.images);
+
+    /**
+
+      LOOP THROUGH ALL THE IMAGES AND HAVE THEM DISPLAY HERE PROPERLY!
+
+    */
+
+
     const parsedImages = JSON.parse(this.state.images);
-    const img = parsedImages['-KGsZeeqxU2bMupysY5I'];
+    // const img = parsedImages['-KGsZeeqxU2bMupysY5I'];
+
+    const displayImages = [];
+
+    /**
+    _.forEach(parsedImages, (img, index) => {
+      console.log(img);
+      displayImages.push(
+        <View key={index}>
+          <Img
+            image={img.image}
+          />
+        </View>
+      );
+    });
     // const img = this.state.images['-KGsZeeqxU2bMupysY5I'].image;
 
     console.log(img);
-
-    return (
-            <Img
-              image={img}
-            />
-    );
-    /**
-      <Text>Hello World</Text>
-            */
-
-    // return this.state.images.map((img, index) => {
-    //   console.log(img);
+    return displayImages;
+    */
+    // return _.map(parsedImages, (img, index) => {
     //   return (
     //     <View key={index}>
     //       <Img
-    //         image={img}
+    //         image={img.image}
     //       />
     //     </View>
     //   )
     // })
+
+    return Object.keys(parsedImages).map((img, index) => {
+
+      const imageString = parsedImages[img].image;
+      console.log(imageString);
+
+      return (
+        <View key={index}>
+          <Img
+            image={imageString}
+          />
+        </View>
+      )
+    })
   },
+
+  /**
+    return (
+      <Img
+        image={img}
+      />
+    );
+
+  */
 
   render() {
     return (

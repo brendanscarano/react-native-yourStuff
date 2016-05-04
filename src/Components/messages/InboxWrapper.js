@@ -21,7 +21,7 @@ const InboxWrapper = React.createClass({
 
   componentDidMount() {
 
-    CameraRoll.getPhotos({first: 1}).then((data) => {
+    CameraRoll.getPhotos({first: 3}).then((data) => {
       console.log(data.edges[0].node.image.uri);
 
       for (let i = 0; i < data.edges.length; i++) {
@@ -29,7 +29,7 @@ const InboxWrapper = React.createClass({
         NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
 
           // Using the full base64 image
-          const encodeBase64data = encodeURIComponent(imageBase64);
+          // const encodeBase64data = encodeURIComponent(imageBase64);
 
           const obj = {
             method: 'POST',
@@ -38,7 +38,7 @@ const InboxWrapper = React.createClass({
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              'img': encodeBase64data
+              'img': imageBase64
             })
           }
 
