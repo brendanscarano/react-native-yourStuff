@@ -16,25 +16,30 @@ import Toolbar from '../common/Toolbar';
 const Img = React.createClass({
 
   componentDidMount() {
-    console.log(this.props.image);
+    console.log(this.props.extension);
   },
 
   saveImage(uri) {
     console.log('selecting image to save')
-    console.log(uri);
+    // console.log(uri);
   },
 
   render() {
 
-    const dataFront = 'data:image/png;base64,';
+    const dataFront = `data:image/${this.props.extension};base64,`;
+
+    console.log(dataFront);
 
     return (
+      <View>
+      <Text>Img should be here:</Text>
       <TouchableHighlight onPress={this.saveImage.bind(null, this.props.image)}>
           <Image
             style={styles.image}
             source={{uri: `${dataFront}${this.props.image}`}}
           />
       </TouchableHighlight>
+      </View>
     );
 
   }

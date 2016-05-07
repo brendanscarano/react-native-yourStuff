@@ -41,14 +41,44 @@ const InboxItem = React.createClass({
 
       ref.child('accepted').set(true);
 
-      CameraRoll.getPhotos({first: 3}).then((data) => {
+      // CameraRoll.getPhotos({first: 10}).then((data) => {
+      //   console.log(data);
+      //   // console.log(data.edges[0].node.image.uri);
+
+      //   const obj = {
+      //     method: 'POST',
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       'data': data
+      //     })
+      //   }
+
+      //   fetch('http://localhost:3000/firebaseNewSave', obj)
+      //     .then((res) => {
+      //       console.log(res);
+      //     })
+      // })
+
+
+      CameraRoll.getPhotos({first: 5}).then((data) => {
+        console.log(data);
         console.log(data.edges[0].node.image.uri);
 
         for (let i = 0; i < data.edges.length; i++) {
 
-          console.log(data.edges[i].node.image.uri);
+          const imgDataString = data.edges[i].node.image.uri;
 
-          NativeModules.ReadImageData.readImage(data.edges[i].node.image.uri, (imageBase64) => {
+          NativeModules.ReadImageData.readImage(imgDataString, (imageBase64) => {
+
+            const extLocation = imgDataString.search('ext=');
+
+            // ie: 'png, jpg, etc'
+            const extType = imgDataString.slice(extLocation, imgDataString.length).replace('ext=', '');
+
+            console.log(extType);
 
             // Using the full base64 image
             const encodeBase64data = encodeURIComponent(imageBase64);
@@ -60,7 +90,8 @@ const InboxItem = React.createClass({
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                'img': encodeBase64data
+                'img': encodeBase64data,
+                'extension': extType
               })
             }
 
