@@ -55,17 +55,6 @@ const ImageWrapper = React.createClass({
     })
   },
 
-  /**
-    return (
-      <View key={index}>
-        <Img
-          image={imageString}
-          extension={extension}
-        />
-      </View>
-    )
-  */
-
   render() {
     return (
       <View style={styles.container}>
@@ -84,17 +73,6 @@ const ImageWrapper = React.createClass({
     );
   }
 });
-
-/**
-render() {
-  return (
-      <ScrollView contentContainerStyle={styles.imageGrid}>
-        {this.state.images ? this.displayPhotos() : null}
-      </ScrollView>
-    </View>
-  );
-}
-*/
 
 const styles = StyleSheet.create({
   container: {
