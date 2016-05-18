@@ -19,18 +19,34 @@ const Toolbar = React.createClass({
     });
   },
 
+  renderLeftButton(buttonTitle) {
+    if (buttonTitle === 'contacts') {
+      <TouchableHighlight
+        style={styles.toolbarButton}
+        underlayColor={'#81c04d'}
+        activeOpacity={.6}
+        onPress={this.onBackScreen}>
+        <Text>{buttonTitle}</Text>
+      </TouchableHighlight>
+    } else {
+      return (
+        <TouchableHighlight
+          style={styles.toolbarButton}
+          underlayColor={'#81c04d'}
+          activeOpacity={.6}
+          onPress={this.onBackScreen}>
+          <Text>{this.props.leftButtonTitle ? this.props.leftButtonTitle : ''}</Text>
+        </TouchableHighlight>
+      )
+    }
+  },
+
   render() {
     return (
       <View>
         <View style={styles.toolbar}>
 
-          <TouchableHighlight
-            style={styles.toolbarButton}
-            underlayColor={'#81c04d'}
-            activeOpacity={.6}
-            onPress={this.onBackScreen}>
-            <Text>{this.props.leftButtonTitle ? this.props.leftButtonTitle : ''}</Text>
-          </TouchableHighlight>
+          {this.renderLeftButton(this.props.leftButtonTitle)}
 
           <Text style={styles.toolbarTitle}>
             {this.props.title}
