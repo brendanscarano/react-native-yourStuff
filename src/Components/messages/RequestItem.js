@@ -17,7 +17,10 @@ const RequestItem = React.createClass({
 
   seeImages() {
     this.props.navigator.push({
-      name: 'images'
+      name: 'images',
+      passProps: {
+        requestId: this.props.id,
+      }
     })
   },
 
