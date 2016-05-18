@@ -11,7 +11,6 @@ import React, {
 
 import _ from 'lodash';
 import Toolbar from '../common/Toolbar';
-import Img from './Img';
 
 const ImageWrapper = React.createClass({
 
@@ -22,27 +21,30 @@ const ImageWrapper = React.createClass({
   },
 
   componentDidMount() {
-
-    console.log('loading the img wrapper');
-
-    fetch('http://localhost:3000/firebaseGetImages')
+    fetch(`http://localhost:3000/firebaseGetImages/${this.props.requestId}`)
       .then((res) => {
-        this.setState({images: res._bodyInit});
+        if (res._bodyInit === '') {
+          this.setState({images: 'no photos'});
+        } else {
+          this.setState({images: res._bodyInit});
+        }
       })
   },
 
   displayPhotos() {
+    console.log(this.state.images);
+    if (this.state.images === 'no photos') {
+      return (
+        <Text>Sorry, no photos for these dates.</Text>
+      )
+    }
 
     const parsedImages = JSON.parse(this.state.images);
 
     return Object.keys(parsedImages).map((key, index) => {
 
       const imageString = parsedImages[key].image;
-
       const extension = parsedImages[key].extension;
-
-      console.log(extension);
-
       const dataFront = `data:image/${this.props.extension};base64,`;
 
       return (
