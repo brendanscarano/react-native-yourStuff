@@ -21,18 +21,19 @@ const ImageWrapper = React.createClass({
   },
 
   componentDidMount() {
+    console.log(`http://localhost:3000/firebaseGetImages/${this.props.requestId}`)
     fetch(`http://localhost:3000/firebaseGetImages/${this.props.requestId}`)
       .then((res) => {
         if (res._bodyInit === '') {
           this.setState({images: 'no photos'});
         } else {
+          console.log(res)
           this.setState({images: res._bodyInit});
         }
       })
   },
 
   displayPhotos() {
-    console.log(this.state.images);
     if (this.state.images === 'no photos') {
       return (
         <Text>Sorry, no photos for these dates.</Text>
@@ -40,12 +41,12 @@ const ImageWrapper = React.createClass({
     }
 
     const parsedImages = JSON.parse(this.state.images);
-
+    console.log(parsedImages);
     return Object.keys(parsedImages).map((key, index) => {
 
-      const imageString = parsedImages[key].image;
-      const extension = parsedImages[key].extension;
-      const dataFront = `data:image/${this.props.extension};base64,`;
+      const imageString = parsedImages[key].base64String;
+      const extension = parsedImages[key].ext;
+      const dataFront = `data:image/${extension};base64,`;
 
       return (
         <Image
