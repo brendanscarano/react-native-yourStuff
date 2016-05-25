@@ -27,6 +27,7 @@ const StartDate = React.createClass({
   },
 
   startDateChange(date) {
+    console.log(date);
     this.setState({startDate: date});
   },
 
@@ -62,7 +63,8 @@ const StartDate = React.createClass({
           <DatePickerIOS
             date={this.state.startDate}
             mode="date"
-            maximumData={this.setMaxDate()}
+            // maximumData={this.setMaxDate()}
+            maximumDate={new Date()}
             onDateChange={this.startDateChange}
           />
           <Button text={'Select End Date'} onPress={this.selectEndDate} />

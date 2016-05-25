@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
   toolbarTitle:{
+    fontFamily: 'GillSans',
     color:'#fff',
     textAlign:'center',
     fontWeight:'bold',

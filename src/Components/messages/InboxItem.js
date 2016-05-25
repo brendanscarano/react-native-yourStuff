@@ -62,7 +62,6 @@ const InboxItem = React.createClass({
             .then((resolve) => {
               allData.push(resolve);
               if (allData.length === data.edges.length) {
-                console.log(allData)
                 const obj = {
                   method: 'POST',
                   headers: {
@@ -83,8 +82,6 @@ const InboxItem = React.createClass({
 
             });
         });
-
-
 
       }); // CameraRoll.getPhotos
 

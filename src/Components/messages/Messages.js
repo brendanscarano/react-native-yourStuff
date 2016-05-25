@@ -17,7 +17,7 @@ const Messages = React.createClass({
   getInitialState() {
     return {
       firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'requests',
+      selectedTab: 'inbox',
       requests: null,
       inbox: null
     }
@@ -87,12 +87,15 @@ const Messages = React.createClass({
       <View style={styles.container}>
         <Toolbar
           title='Messages'
-          leftButtonTitle='Back'
+          leftButtonTitle='Contacts'
           route={this.props.route}
           navigator={this.props.navigator}
         />
 
         <View style={styles.messageWrapper}>
+          <View style={styles.messageWrapper}>
+            {this.renderMessageSection()}
+          </View>
           <View style={styles.buttonWrapper}>
             <TouchableHighlight
               onPress={() => this.getInbox()}
@@ -109,9 +112,6 @@ const Messages = React.createClass({
             </TouchableHighlight>
           </View>
 
-          <View style={styles.messageWrapper}>
-            {this.renderMessageSection()}
-          </View>
         </View>
       </View>
     )
