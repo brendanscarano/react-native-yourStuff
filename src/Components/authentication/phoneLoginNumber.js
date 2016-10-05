@@ -14,8 +14,8 @@ import Button from './Button';
 
 export default class PhoneNumberLoginWrapper extends Component {
   state = {
-      firebase: new Firebase('https://gimmie.firebaseio.com/users'),
-      phoneNumber: ''
+        firebase: new Firebase('https://gimmie.firebaseio.com/users'),
+        phoneNumber: ''
   };
 
   componentDidMount() {
@@ -23,13 +23,17 @@ export default class PhoneNumberLoginWrapper extends Component {
   }
 
   onSignUpPress = () => {
-    if (this.state.phoneNumber !== '') {
-      const strippedNum = this.state.phoneNumber.replace(/-|\s|\(|\)/g,"");
-      console.log('strippedNum', strippedNum);
+    if (this.state.phoneNumber.length < 10) {
+        console.log('phone number too short...');
+        return
+    }
 
-      const ranNum = randomNumber(4);
+    const strippedNum = this.state.phoneNumber.replace(/-|\s|\(|\)/g,"");
+    console.log('strippedNum', strippedNum);
 
-      fetch(`http://localhost:3000/message/1${strippedNum}/${this.props.name}/${ranNum}`)
+    const ranNum = randomNumber(4);
+
+    fetch(`http://localhost:3000/message/1${strippedNum}/${this.props.name}/${ranNum}`)
         .then((res) => {
           console.log(res);
             this.state.firebase.push({
@@ -49,7 +53,6 @@ export default class PhoneNumberLoginWrapper extends Component {
         .then((resJSON) => {
           console.log(resJSON);
         });
-    }
   };
 
   render() {
