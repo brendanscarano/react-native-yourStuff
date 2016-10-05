@@ -9,17 +9,17 @@ import React, {
 import Emoji from 'react-native-emoji';
 import Toolbar from '../common/Toolbar';
 
-const NoContactErrorScreen = React.createClass({
-  render() {
+export default function NoContactErrorScreen({route, navigator}) {
+    const { contatiner, textWrapper } = styles;
     return (
-      <View style={styles.container}>
+      <View style={container}>
         <Toolbar
           leftButtonTitle='Back'
-          route={this.props.route}
-          navigator={this.props.navigator}
+          route={route}
+          navigator={navigator}
         />
 
-        <View style={styles.textWrapper}>
+        <View style={textWrapper}>
           <Text><Emoji name='weary'/> Oh man!</Text>
           <Text>It looks like [insert name here] doesn't have Gimme</Text>
           <Text>Click the button below and well send them a text inviting them to install it!</Text>
@@ -27,7 +27,7 @@ const NoContactErrorScreen = React.createClass({
       </View>
     )
   }
-});
+};
 
 const styles = StyleSheet.create({
   container: {
