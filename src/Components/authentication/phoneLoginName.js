@@ -49,7 +49,7 @@ const PhoneLoginName = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 140,
     alignItems: 'center',
     backgroundColor: 'white'
   },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    margin: 5,
+    margin: 1,
     width: 200,
     alignSelf: 'center'
   },

@@ -1,5 +1,6 @@
 'use strict';
-import React, {
+import React, { Component } from 'react'
+import {
   View,
   Text,
   StyleSheet,
@@ -11,96 +12,92 @@ import Firebase from 'firebase';
 import Emoji from 'react-native-emoji';
 import Button from './Button';
 
-const PhoneLoginNumber = React.createClass({
-
-  getInitialState() {
-    return {
+export default class PhoneNumberLoginWrapper extends Component {
+  state = {
       firebase: new Firebase('https://gimmie.firebaseio.com/users'),
       phoneNumber: ''
-    }
-  },
+  };
 
   componentDidMount() {
-    AsyncStorage.getItem('user').then((value) => {
-      console.log(value);
-    });
-  },
+    AsyncStorage.getItem('user').then((value) => console.log(value));
+  }
 
-  randomNumber(numberOfDigits) {
-    let verificationCode = '';
-
-    for (let i = 0; i < numberOfDigits; i++) {
-      verificationCode += Math.floor((Math.random() * 9) + 1).toString();
-    }
-
-    return verificationCode;
-  },
-
-  onSignUpPress() {
-
+  onSignUpPress = () => {
     if (this.state.phoneNumber !== '') {
+      const strippedNum = this.state.phoneNumber.replace(/-|\s|\(|\)/g,"");
+      console.log('strippedNum', strippedNum);
 
-      // remove any +*#
-      // add country code in front of it
-      console.log(this.state.phoneNumber);
+      const ranNum = randomNumber(4);
 
-      // to be used for Twilio
-      const userNum = `1${this.state.phoneNumber}`;
-      // const userNum = '+15163187361';
-
-      const ranNum = this.randomNumber(4);
-      // const ranNum = 1234;
-
-      console.log(ranNum);
-
-
-      fetch(`http://localhost:3000/message/${userNum}/${this.props.name}/${ranNum}`)
+      fetch(`http://localhost:3000/message/1${strippedNum}/${this.props.name}/${ranNum}`)
         .then((res) => {
           console.log(res);
+            this.state.firebase.push({
+                name: this.props.name,
+                phoneNumber: this.state.phoneNumber,
+                verificationCode: ranNum,
+                created_at: new Date()
+            });
+
+            this.props.navigator.push({
+                name: 'verificationCode',
+                passProps: {
+                    code: ranNum
+            }
+            });
         })
         .then((resJSON) => {
           console.log(resJSON);
         });
-
-      this.state.firebase.push({
-        name: this.props.name,
-        phoneNumber: this.state.phoneNumber,
-        verificationCode: ranNum,
-        created_at: new Date()
-      });
-
-      this.props.navigator.push({
-        name: 'verificationCode',
-        passProps: {
-          code: ranNum
-        }
-      });
-
     }
-
-  },
+  };
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text><Emoji name='wave'/> Hi {this.props.name}!</Text>
-        <Text>What Is Your Phone Number</Text>
-        <Text>We promise we'll never spam you! This just makes it easy for you to use your contacts list, and request photos/videos that way.</Text>
-        <TextInput
-          style={styles.input}
-          autoFocus={true}
-          value={this.state.phoneNumber}
-          keyboardType='phone-pad'
-          placeholder='(555) 123-5678'
-          onChangeText={(text) => this.setState({phoneNumber: text})}
-          />
+        return (
+            <PhoneNumberLogin
+                name={this.props.name}
+                phoneNumber={this.state.phoneNumber}
+                onSignUpPress={this.onSignUpPress}
+                onChangeText={(text) => this.setState({phoneNumber: text})}
+            />
+        );
+    }
+}
 
-        <Text style={styles.label}>{this.state.errorMessage}</Text>
-        <Button text={'Send Code'} onPress={this.onSignUpPress} />
-      </View>
-    );
-  },
-});
+function PhoneNumberLogin(props) {
+    return (
+        <View style={styles.container}>
+          <Text><Emoji name='wave'/> Hi {props.name}!</Text>
+          <Text>What Is Your Phone Number</Text>
+          <Text>We promise we'll never spam you! This just makes it easy for you to use your contacts list, and request photos/videos that way.</Text>
+          <View style={styles.numberInputWrapper}>
+            <Text style={styles.flag}><Emoji name='flag-us'/> +1</Text>
+            <TextInput
+              style={styles.input}
+              autoFocus={true}
+              value={props.phoneNumber}
+              keyboardType='phone-pad'
+              placeholder='5551235678'
+              maxLength={10}
+              onChangeText={props.onChangeText}
+              />
+          </View>
+
+          {/* <Text style={styles.label}>{this.state.errorMessage}</Text> */}
+          <Button text={'Send Code'} onPress={props.onSignUpPress} />
+        </View>
+    )
+}
+
+function randomNumber(numberOfDigits) {
+    let verificationCode = '';
+
+    for (let i = 0; i < numberOfDigits; i++) {
+        verificationCode += Math.floor((Math.random() * 9) + 1).toString();
+    }
+
+    return verificationCode;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -108,6 +105,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
+  },
+  numberInputWrapper: {
+    alignItems: 'stretch',
+    flexDirection: 'row'
+  },
+  flag: {
+    marginTop: 6,
+    fontSize: 18
   },
   input: {
     padding: 4,
@@ -124,4 +129,4 @@ const styles = StyleSheet.create({
   }
 })
 
-module.exports = PhoneLoginNumber;
+module.exports = PhoneNumberLoginWrapper;

@@ -5,19 +5,17 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
-module.exports = React.createClass({
-  render() {
+export default function Button(props) {
     return (
       <TouchableHighlight
         style={styles.button}
         underlayColor={'#333'}
-        onPress={this.props.onPress}
+        onPress={props.onPress}
         >
-        <Text style={styles.buttonText}>{this.props.text}</Text>
+        <Text style={styles.buttonText}>{props.text}</Text>
       </TouchableHighlight>
     );
-  }
-});
+}
 
 const styles = StyleSheet.create({
   button: {
