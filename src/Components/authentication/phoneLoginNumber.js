@@ -13,49 +13,47 @@ import Emoji from 'react-native-emoji';
 import Button from './Button';
 
 export default class PhoneNumberLoginWrapper extends Component {
-  state = {
+    state = {
         firebase: new Firebase('https://gimmie.firebaseio.com/users'),
         phoneNumber: ''
-  };
+    };
 
-  componentDidMount() {
-    AsyncStorage.getItem('user').then((value) => console.log(value));
-  }
-
-  onSignUpPress = () => {
-    if (this.state.phoneNumber.length < 10) {
-        console.log('phone number too short...');
-        return
+    componentDidMount() {
+        AsyncStorage.getItem('user').then((value) => console.log(value));
     }
 
-    const strippedNum = this.state.phoneNumber.replace(/-|\s|\(|\)/g,"");
-    console.log('strippedNum', strippedNum);
+    onSignUpPress = () => {
+        if (this.state.phoneNumber.length < 10) {
+            console.log('phone number too short...');
+            return
+        }
 
-    const ranNum = randomNumber(4);
+        const strippedNum = this.state.phoneNumber.replace(/-|\s|\(|\)/g,"");
+        console.log('strippedNum', strippedNum);
 
-    fetch(`http://localhost:3000/message/1${strippedNum}/${this.props.name}/${ranNum}`)
+        const ranNum = randomNumber(4);
+
+        fetch(`http://localhost:3000/message/1${strippedNum}/${this.props.name}/${ranNum}`)
         .then((res) => {
-          console.log(res);
-            this.state.firebase.push({
-                name: this.props.name,
-                phoneNumber: this.state.phoneNumber,
-                verificationCode: ranNum,
-                created_at: new Date()
-            });
+            console.log(res);
+                this.state.firebase.push({
+                    name: this.props.name,
+                    phoneNumber: this.state.phoneNumber,
+                    verificationCode: ranNum,
+                    created_at: new Date()
+                });
 
-            this.props.navigator.push({
-                name: 'verificationCode',
-                passProps: {
-                    code: ranNum
-            }
-            });
+                this.props.navigator.push({
+                    name: 'verificationCode',
+                    passProps: { code: ranNum }
+                });
         })
         .then((resJSON) => {
           console.log(resJSON);
         });
-  };
+    };
 
-  render() {
+    render() {
         return (
             <PhoneNumberLogin
                 name={this.props.name}
@@ -103,33 +101,31 @@ function randomNumber(numberOfDigits) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white'
-  },
-  numberInputWrapper: {
-    alignItems: 'stretch',
-    flexDirection: 'row'
-  },
-  flag: {
-    marginTop: 6,
-    fontSize: 18
-  },
-  input: {
-    padding: 4,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    margin: 5,
-    width: 200,
-    alignSelf: 'center'
-  },
-  label: {
-    fontSize: 18
-  }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    numberInputWrapper: {
+        alignItems: 'stretch',
+        flexDirection: 'row'
+    },
+    flag: {
+        marginTop: 6,
+        fontSize: 18
+    },
+    input: {
+        padding: 4,
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 5,
+        margin: 5,
+        width: 200,
+        alignSelf: 'center'
+    },
+    label: {
+        fontSize: 18
+    }
 })
-
-module.exports = PhoneNumberLoginWrapper;

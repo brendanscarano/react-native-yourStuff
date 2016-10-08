@@ -26,7 +26,6 @@ export default function NoContactErrorScreen({route, navigator}) {
         </View>
       </View>
     )
-  }
 };
 
 const styles = StyleSheet.create({
