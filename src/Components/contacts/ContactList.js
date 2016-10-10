@@ -12,6 +12,11 @@ import ContactsAPI from 'react-native-contacts';
 import ContactListItem from './ContactListItem';
 import Toolbar from '../common/Toolbar';
 
+/**
+    MAKE THIS INTO A LIST VIEW INSTEAD OF SCROLL VIEW
+    REMOVE THE CLASS IF POSSIBLE
+*/
+
 export default class ContactListWrapper extends Component {
     state = {
         contacts: []
