@@ -1,6 +1,6 @@
 'use strict';
-
-import React, {
+import React, { Component } from 'react';
+import {
   View,
   Text,
   StyleSheet,
@@ -12,111 +12,97 @@ import InboxWrapper from './InboxWrapper';
 import RequestWrapper from './RequestWrapper';
 import Toolbar from '../common/Toolbar';
 
-const Messages = React.createClass({
+export default class Messages extends Component {
+    state = {
+        firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
+        selectedTab: 'inbox',
+        requests: null,
+        inbox: null
+    };
 
-  getInitialState() {
-    return {
-      firebase: new Firebase('https://gimmie.firebaseio.com/requests'),
-      selectedTab: 'inbox',
-      requests: null,
-      inbox: null
-    }
-  },
-
-  componentDidMount() {
+    componentDidMount() {
 
     // this.state.firebase.on('child_added', (snapshot, prevChildKey) => {
     //   console.log(snapshot.val());
     // });
     AsyncStorage.getItem('user').then((value) => {
-
-      console.log(value);
-
-      const usersPhoneNumber = JSON.parse(value).phoneNumber;
+        console.log(value);
+        const usersPhoneNumber = JSON.parse(value).phoneNumber;
 
       // get a users requests
-      this.state.firebase
-        .orderByChild('yourNumber')
-        .equalTo(usersPhoneNumber)
-        .once('value', (snap) => {
-          // console.log(snap.val())
-          this.setState({requests: snap.val()});
-      })
+        this.state.firebase
+            .orderByChild('yourNumber')
+            .equalTo(usersPhoneNumber)
+            .once('value', (snap) => {
+                this.setState({requests: snap.val()});
+        })
 
       // get a users inbox
-      this.state.firebase
-        .orderByChild('requestedUserNumber')
-        .equalTo(usersPhoneNumber)
-        .once('value', (snap) => {
-          this.setState({inbox: snap.val()});
-      })
-    });
+        this.state.firebase
+            .orderByChild('requestedUserNumber')
+            .equalTo(usersPhoneNumber)
+            .once('value', (snap) => {
+                this.setState({inbox: snap.val()});
+            })
+        });
+    };
 
-  },
+    renderMessageSection() {
+        return this.state.selectedTab === 'inbox'
+            ? <InboxWrapper inbox={this.state.inbox} />
+            : <RequestWrapper
+                  route={this.props.route}
+                  navigator={this.props.navigator}
+                  requests={this.state.requests}
+                />
+    };
 
-  getInbox() {
-    this.setState({
-      selectedTab: 'inbox'
-    });
-  },
+    updateTab = (tab) => {
+        this.setState({selectedTab: tab})
+    };
 
-  getRequests() {
-    this.setState({
-      selectedTab: 'requests'
-    });
-  },
+    render() {
+        return (
+            <View style={styles.container}>
+                <Toolbar
+                  title='Messages'
+                  leftButtonTitle='Contacts'
+                  route={this.props.route}
+                  navigator={this.props.navigator}
+                />
 
-  renderMessageSection() {
-    if(this.state.selectedTab === 'inbox') {
-      return (
-        <InboxWrapper inbox={this.state.inbox} />
-      )
-    } else {
-      return (
-        <RequestWrapper
-          route={this.props.route}
-          navigator={this.props.navigator}
-          requests={this.state.requests}
-        />
-      )
+                <View style={styles.messageWrapper}>
+                    {this.renderMessageSection()}
+                </View>
+
+                <BottomBar
+                    selectedTab={this.state.selectedTab}
+                    updateTab={this.updateTab}
+                />
+            </View>
+        )
     }
-  },
+};
 
-  render() {
+function BottomBar(props) {
     return (
-      <View style={styles.container}>
-        <Toolbar
-          title='Messages'
-          leftButtonTitle='Contacts'
-          route={this.props.route}
-          navigator={this.props.navigator}
-        />
-
-        <View style={styles.messageWrapper}>
-          <View style={styles.messageWrapper}>
-            {this.renderMessageSection()}
-          </View>
-          <View style={styles.buttonWrapper}>
+        <View style={styles.buttonWrapper}>
             <TouchableHighlight
-              onPress={() => this.getInbox()}
-              underlayColor='red'
-              style={[styles.button, this.state.selectedTab === 'inbox' ? styles.activeButton : null]}>
-              <Text style={styles.buttonText}>Inbox</Text>
+                onPress={() => props.updateTab('inbox')}
+                underlayColor='red'
+                style={[styles.button, props.selectedTab === 'inbox' ? styles.activeButton : null]}>
+                <Text style={styles.buttonText}>Inbox</Text>
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress={() => this.getRequests()}
-              underlayColor='red'
-              style={[styles.button, this.state.selectedTab === 'requests' ? styles.activeButton : null]}>
-              <Text style={styles.buttonText}>Requests</Text>
+                onPress={() => props.updateTab('requests')}
+                underlayColor='red'
+                style={[styles.button, props.selectedTab === 'requests' ? styles.activeButton : null]}>
+                <Text style={styles.buttonText}>Requests</Text>
             </TouchableHighlight>
-          </View>
-
         </View>
-      </View>
     )
-  }
-});
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -157,5 +143,3 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-
-module.exports = Messages;
