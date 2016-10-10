@@ -1,72 +1,73 @@
 'use strict';
 
 import React, {
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight
+    View,
+    Text,
+    StyleSheet,
+    TouchableHighlight
 } from 'react-native';
 
-const ContactListItem = React.createClass({
+export default function ContactListItem(props) {
+    return (
+        <View>
+            <TouchableHighlight
+                onPress={() => requestMedia(props.name, props.phoneNumber, props.navigator)}
+                underlayColor='red'
+                style={styles.contact}
+            >
+                <Text>{props.name} {props.phoneNumber}</Text>
+            </TouchableHighlight>
+        </View>
+    )
+};
 
-  requestMedia(name, number) {
-
-    const flatNum = number.replace(/-/g, '');
+function requestMedia(contactName, contactNumber, navigator) {
+    const flatNum = contactNumber.replace(/-/g, '');
     const ref = new Firebase('https://gimmie.firebaseio.com/users');
 
     ref.orderByChild('phoneNumber').equalTo(flatNum).on('value', (snapshot) => {
+        const contact = snapshot.val();
 
-      const contact = snapshot.val();
+        console.log('contactName', contactName);
+        if (contact === null || !contact) {
+            navigator.push({
+                name: 'noContactsError',
+                passProps: {
+                    contactName,
+                    contactNumber
+                }
+            });
+            return;
+        }
 
-      if (contact) {
-
+        console.log('contactName', contactName);
+        console.log('contactNumber', contactNumber);
         const contactId = Object.keys(contact)[0];
         const name = contact[contactId].name;
         const phoneNumber = contact[contactId].phoneNumber;
 
-        this.props.navigator.push({
-          name: 'startDate',
-          passProps: {
-            contactName: name,
-            contactNumber: phoneNumber
-          }
+        console.log('name', name);
+        console.log('phoneNumber', phoneNumber);
+
+        navigator.push({
+            name: 'startDate',
+            passProps: {
+                contactName: name,
+                contactNumber: phoneNumber
+            }
         });
-
-      } else {
-
-        this.props.navigator.push({
-          name: 'noContactsError'
-        });
-
-      }
-
     });
-
-  },
-
-  render() {
-    return (
-      <View>
-        <TouchableHighlight
-          onPress={() => this.requestMedia(this.props.name, this.props.phoneNumber)}
-          underlayColor='red'
-          style={styles.contact}>
-          <Text>{this.props.name} {this.props.phoneNumber}</Text>
-        </TouchableHighlight>
-      </View>
-    )
-  }
-});
+}
 
 const styles = StyleSheet.create({
-  contact: {
-    height: 60,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#47b8e0',
-    position: 'relative'
-  }
+    contact: {
+        height: 50,
+        paddingTop: 15,
+        paddingLeft: 10,
+        marginBottom: 10,
+        borderBottomWidth: 1,
+        borderRadius: 5,
+        borderBottomColor: '#ccc',
+        position: 'relative'
+    }
 });
-
-module.exports = ContactListItem;

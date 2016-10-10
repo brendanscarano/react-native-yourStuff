@@ -61,8 +61,8 @@ const youPics = React.createClass({
     //   return {name: 'phoneLoginName'};
     // }
 
-    return {name: 'phoneLoginName'};
-    // return {name: 'messages'};
+    // return {name: 'phoneLoginName'};
+    return {name: 'contacts'};
   },
 
   render() {
