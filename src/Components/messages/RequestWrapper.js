@@ -1,5 +1,4 @@
 'use strict';
-
 import React, {
   View,
   Text,
@@ -9,32 +8,25 @@ import React, {
 
 import RequestItem from './RequestItem';
 
-const RequestWrapper = React.createClass({
-
-  renderRequests() {
-    const requestsObj = this.props.requests;
-
-    return Object.keys(requestsObj).map((req, index) => {
-      return (
-        <RequestItem
-          route={this.props.route}
-          navigator={this.props.navigator}
-          id={req}
-          request={requestsObj[req]}
-          key={index}
-        />
-      )
-    })
-  },
-
-  render() {
+export default function RequestWrapper(props) {
     return (
-      <View style={styles.container}>
-        {this.props.requests ? this.renderRequests() : null}
-      </View>
+        <View style={styles.container}>
+            {props.requests ? renderRequests({...props}) : <Text>Loading...</Text>}
+        </View>
     )
-  }
-});
+}
+
+function renderRequests({requests, route, navigator}) {
+    return Object.keys(requests).map((req, index) => (
+        <RequestItem
+            key={index}
+            route={route}
+            navigator={navigator}
+            id={req}
+            request={requests[req]}
+        />
+    ))
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -46,5 +38,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   }
 });
-
-module.exports = RequestWrapper;
