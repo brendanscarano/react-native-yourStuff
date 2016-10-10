@@ -28,7 +28,6 @@ function requestMedia(contactName, contactNumber, navigator) {
     ref.orderByChild('phoneNumber').equalTo(flatNum).on('value', (snapshot) => {
         const contact = snapshot.val();
 
-        console.log('contactName', contactName);
         if (contact === null || !contact) {
             navigator.push({
                 name: 'noContactsError',
@@ -40,15 +39,8 @@ function requestMedia(contactName, contactNumber, navigator) {
             return;
         }
 
-        console.log('contactName', contactName);
-        console.log('contactNumber', contactNumber);
         const contactId = Object.keys(contact)[0];
-        const name = contact[contactId].name;
-        const phoneNumber = contact[contactId].phoneNumber;
-
-        console.log('name', name);
-        console.log('phoneNumber', phoneNumber);
-
+        const { name, phoneNumber } = contact[contactId];
         navigator.push({
             name: 'startDate',
             passProps: {
